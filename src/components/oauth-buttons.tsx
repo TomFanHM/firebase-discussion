@@ -26,6 +26,7 @@ const AppleOauthButton: React.FC<OauthButtonProps> = ({ auth }) => {
     >
       <span className="sr-only">Sign in with Apple</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 384 512"
         className="h-4 w-4 fill-current"
@@ -48,6 +49,7 @@ const FacebookOauthButton: React.FC<OauthButtonProps> = ({ auth }) => {
     >
       <span className="sr-only">Sign in with Facebook</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 320 512"
         className="h-4 w-4 fill-current"
@@ -70,6 +72,7 @@ const GithubOauthButton: React.FC<OauthButtonProps> = ({ auth }) => {
     >
       <span className="sr-only">Sign in with Github</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 496 512"
         className="h-4 w-4 fill-current"
@@ -92,6 +95,7 @@ const GoogleOauthButton: React.FC<OauthButtonProps> = ({ auth }) => {
     >
       <span className="sr-only">Sign in with Google</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 488 512"
         className="h-4 w-4 fill-current"
@@ -114,6 +118,7 @@ const MicrosoftOauthButton: React.FC<OauthButtonProps> = ({ auth }) => {
     >
       <span className="sr-only">Sign in with Microsoft</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
         className="h-4 w-4 fill-current"
@@ -136,6 +141,7 @@ const TwitterOauthButton: React.FC<OauthButtonProps> = ({ auth }) => {
     >
       <span className="sr-only">Sign in with Twitter</span>
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         className="h-4 w-4 fill-current"

@@ -24,7 +24,7 @@ type FirebaseDiscussionProps = {
 const FirebaseDiscuss = React.forwardRef<HTMLElement, FirebaseDiscussionProps>(
   ({ customFallbackImagePath, ...props }, ref) => {
     return (
-      <section className="mx-auto w-full" ref={ref}>
+      <section className="mx-auto w-full p-4" ref={ref}>
         <Suspense
           fallback={
             <LoadingFallback
