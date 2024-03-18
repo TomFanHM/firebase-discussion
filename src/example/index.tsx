@@ -3,14 +3,20 @@ import FirebaseDiscusion from "@/components"
 
 import { auth, firestore } from "./firebase"
 
-const Example: React.FC = () => {
+type ExampleProps = {
+  theme: "light" | "dark"
+}
+
+const Example: React.FC<ExampleProps> = ({ theme }) => {
   return (
-    <FirebaseDiscusion
-      firestore={firestore}
-      auth={auth}
-      usersCollection="users"
-      identifier="test-discussion"
-    />
+    <div className={theme}>
+      <FirebaseDiscusion
+        firestore={firestore}
+        auth={auth}
+        usersCollection="users"
+        identifier="test-discussion"
+      />
+    </div>
   )
 }
 export default Example
