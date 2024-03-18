@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { config } from "@/config"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { Status } from "@/types"
@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore"
 
 import { createDiscussion } from "@/lib/createDiscussion"
 
-import LoginButtonGroup from "./login-button-group"
+import CommentInput from "./comment-input"
 import { LoadingSpinner } from "./ui/loading-spinner"
 
 const PendingInterface = () => {
@@ -44,9 +44,7 @@ const ErrorInterface = () => {
   )
 }
 
-type ContainerProps = {}
-
-const Container: React.FC<ContainerProps> = () => {
+const Container: React.FC = () => {
   const { firestore, identifier } = useFirebaseDiscussion()
   const [status, setStatus] = useState<Status>("pending")
 
@@ -68,9 +66,9 @@ const Container: React.FC<ContainerProps> = () => {
   if (status === "pending") return <PendingInterface />
   if (status === "error") return <ErrorInterface />
   return (
-    <div>
-      <LoginButtonGroup />
-    </div>
+    <Fragment>
+      <CommentInput />
+    </Fragment>
   )
 }
 export default Container

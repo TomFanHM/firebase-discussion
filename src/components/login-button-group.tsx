@@ -10,9 +10,7 @@ import {
   TwitterOauthButton,
 } from "./oauth-buttons"
 
-type LoginButtonGroupProps = {}
-
-const LoginButtonGroup: React.FC<LoginButtonGroupProps> = () => {
+const LoginButtonGroup: React.FC = () => {
   const { auth } = useFirebaseDiscussion()
   return (
     <div className="flex gap-2">
