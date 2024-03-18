@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { config } from "@/config"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
+import { Status } from "@/types"
 import { doc, getDoc } from "firebase/firestore"
 
 import { createDiscussion } from "@/lib/createDiscussion"
@@ -47,9 +48,7 @@ type ContainerProps = {}
 
 const Container: React.FC<ContainerProps> = () => {
   const { firestore, identifier } = useFirebaseDiscussion()
-  const [status, setStatus] = useState<"pending" | "success" | "error">(
-    "pending"
-  )
+  const [status, setStatus] = useState<Status>("pending")
 
   useEffect(() => {
     async function initial() {

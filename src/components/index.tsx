@@ -12,13 +12,17 @@ type FirebaseDiscussionProps = {
   usersCollection: string
   identifier: string
   customFallbackImagePath?: string
+  // OAuth
+  loginWithApple?: boolean
+  loginWithFacebook?: boolean
+  loginWithGithub?: boolean
+  loginWithGoogle?: boolean
+  loginWithMicrosoft?: boolean
+  loginWithTwitter?: boolean
 }
 
 const FirebaseDiscuss = React.forwardRef<HTMLElement, FirebaseDiscussionProps>(
-  (
-    { firestore, auth, usersCollection, identifier, customFallbackImagePath },
-    ref
-  ) => {
+  ({ customFallbackImagePath, ...props }, ref) => {
     return (
       <section className="mx-auto w-full" ref={ref}>
         <Suspense
@@ -28,12 +32,7 @@ const FirebaseDiscuss = React.forwardRef<HTMLElement, FirebaseDiscussionProps>(
             />
           }
         >
-          <FirebaseDiscussionProvider
-            firestore={firestore}
-            auth={auth}
-            identifier={identifier}
-            usersCollection={usersCollection}
-          >
+          <FirebaseDiscussionProvider {...props}>
             <div className="flex w-full flex-col items-center gap-8">
               <Container />
             </div>
