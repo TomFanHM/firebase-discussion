@@ -13,7 +13,7 @@ import {
 const LoginButtonGroup: React.FC = () => {
   const { auth } = useFirebaseDiscussion()
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-wrap gap-2">
       <AppleOauthButton auth={auth} />
       <FacebookOauthButton auth={auth} />
       <GithubOauthButton auth={auth} />

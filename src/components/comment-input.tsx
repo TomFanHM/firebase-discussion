@@ -25,27 +25,15 @@ const Preview = ({ comment }: { comment: string }) => {
     updatePreview()
   }, [comment])
 
-  if (isPending)
-    return (
-      <div className="min-h-[100px] border-b-2 px-2 py-4">
-        <span>Loading ...</span>
-      </div>
-    )
+  if (isPending) return <span>Loading ...</span>
 
-  if (!preview)
-    return (
-      <div className="min-h-[100px] border-b-2 px-2 py-4">
-        <span>Nothing to preview</span>
-      </div>
-    )
+  if (!preview) return <span>Nothing to preview</span>
 
   return (
-    <div className="min-h-[100px] border-b-2 px-2 py-4">
-      <div
-        dangerouslySetInnerHTML={{ __html: preview }}
-        className="prose lg:prose-lg"
-      />
-    </div>
+    <div
+      dangerouslySetInnerHTML={{ __html: preview }}
+      className="prose lg:prose-lg dark:prose-invert"
+    />
   )
 }
 
@@ -90,7 +78,7 @@ const CommentInput: React.FC = () => {
         <Card>
           {/* Header */}
           <CardHeader className="pb-0">
-            <TabsList className="grid w-full grid-cols-2 rounded-b-none border-b border-border">
+            <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="write">Write</TabsTrigger>
               <TabsTrigger value="preview">Preview</TabsTrigger>
             </TabsList>
@@ -126,7 +114,9 @@ const CommentInput: React.FC = () => {
               </div>
             </TabsContent>
             <TabsContent value="preview">
-              <Preview comment={comment} />
+              <div className="min-h-[100px] border-b-2 px-2 py-4">
+                <Preview comment={comment} />
+              </div>
             </TabsContent>
           </CardContent>
           <CardFooter>

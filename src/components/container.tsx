@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { Fragment, lazy, Suspense, useEffect, useState } from "react"
 import { config } from "@/config"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { Status } from "@/types"
@@ -6,8 +6,11 @@ import { doc, getDoc } from "firebase/firestore"
 
 import { createDiscussion } from "@/lib/createDiscussion"
 
-import CommentInput from "./comment-input"
 import { LoadingSpinner } from "./ui/loading-spinner"
+import { Skeleton } from "./ui/skeleton"
+
+const CommentInput = lazy(() => import("./comment-input"))
+const Comments = lazy(() => import("./comments"))
 
 const PendingInterface = () => {
   return (
@@ -67,7 +70,12 @@ const Container: React.FC = () => {
   if (status === "error") return <ErrorInterface />
   return (
     <Fragment>
-      <CommentInput />
+      <Suspense fallback={<Skeleton className="h-6 w-full" />}>
+        <Comments />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="h-6 w-full" />}>
+        <CommentInput />
+      </Suspense>
     </Fragment>
   )
 }
