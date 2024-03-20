@@ -2,9 +2,9 @@ import React, { useEffect, useState, useTransition } from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 
 import { createComment } from "@/lib/createComment"
-import { safeMarkdownToHtml } from "@/lib/safeMarkdownToHtml"
 
 import LoginButtonGroup from "./login-button-group"
+import MarkdownRenderer from "./markdown-renderer"
 import SignOutButton from "./sign-out-button"
 import { Button } from "./ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
@@ -15,10 +15,9 @@ const Preview = ({ comment }: { comment: string }) => {
   const [preview, setPreview] = useState<string>("")
   const [isPending, startTransition] = useTransition()
   useEffect(() => {
-    const updatePreview = async () => {
-      const html = await safeMarkdownToHtml(comment)
+    const updatePreview = () => {
       startTransition(() => {
-        setPreview(html)
+        setPreview(comment)
       })
     }
 
@@ -29,12 +28,7 @@ const Preview = ({ comment }: { comment: string }) => {
 
   if (!preview) return <span>Nothing to preview</span>
 
-  return (
-    <div
-      dangerouslySetInnerHTML={{ __html: preview }}
-      className="prose lg:prose-lg dark:prose-invert"
-    />
-  )
+  return <MarkdownRenderer content={preview} />
 }
 
 const CommentInput: React.FC = () => {
@@ -57,12 +51,11 @@ const CommentInput: React.FC = () => {
     setLoading(true)
     try {
       // Create comment
-      const safeHtml = await safeMarkdownToHtml(comment)
       const success = await createComment({
         firestore,
         identifier,
         user,
-        content: safeHtml,
+        content: comment,
       })
       if (success) setComment("") // Clear input
     } catch (error) {

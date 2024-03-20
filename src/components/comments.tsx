@@ -1,11 +1,11 @@
-import React, { useMemo } from "react"
+import React from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { Comment } from "@/types"
-import DOMPurify from "dompurify"
 
 import { timestampToRelativeTime } from "@/lib/timestampToRelativeTime"
 import useComments from "@/hooks/useComments"
 
+import MarkdownRenderer from "./markdown-renderer"
 import { Card, CardContent, CardHeader } from "./ui/card"
 import { Skeleton } from "./ui/skeleton"
 
@@ -16,9 +16,6 @@ type CommentCardProps = {
 }
 
 const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
-  const safeHtml = useMemo(() => {
-    return DOMPurify.sanitize(data.content)
-  }, [data])
   return (
     <Card>
       <CardHeader>
@@ -29,12 +26,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div
-          className="prose lg:prose-lg dark:prose-invert"
-          dangerouslySetInnerHTML={{
-            __html: safeHtml,
-          }}
-        />
+        <MarkdownRenderer content={data.content} />
       </CardContent>
     </Card>
   )
