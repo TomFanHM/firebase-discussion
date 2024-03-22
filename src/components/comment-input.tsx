@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useTransition } from "react"
+import React, { useState, useTransition } from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 
 import { createComment } from "@/lib/createComment"
@@ -10,26 +10,6 @@ import { Button } from "./ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 import { Textarea } from "./ui/textarea"
-
-const Preview = ({ comment }: { comment: string }) => {
-  const [preview, setPreview] = useState<string>("")
-  const [isPending, startTransition] = useTransition()
-  useEffect(() => {
-    const updatePreview = () => {
-      startTransition(() => {
-        setPreview(comment)
-      })
-    }
-
-    updatePreview()
-  }, [comment])
-
-  if (isPending) return <span>Loading ...</span>
-
-  if (!preview) return <span>Nothing to preview</span>
-
-  return <MarkdownRenderer content={preview} />
-}
 
 const CommentInput: React.FC = () => {
   const { firestore, identifier, user } = useFirebaseDiscussion()
@@ -108,7 +88,7 @@ const CommentInput: React.FC = () => {
             </TabsContent>
             <TabsContent value="preview">
               <div className="min-h-[100px] border-b-2 px-2 py-4">
-                <Preview comment={comment} />
+                <MarkdownRenderer content={comment} />
               </div>
             </TabsContent>
           </CardContent>

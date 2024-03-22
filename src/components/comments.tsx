@@ -7,6 +7,7 @@ import useComments from "@/hooks/useComments"
 
 import Creator from "./creator"
 import MarkdownRenderer from "./markdown-renderer"
+import Share from "./share"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 import { Skeleton } from "./ui/skeleton"
 
@@ -17,7 +18,7 @@ type CommentCardProps = {
 }
 
 const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
-  const formatTime = useMemo(() => {
+  const format = useMemo(() => {
     const date = new Date(
       data.createdAt.seconds * 1000 + data.createdAt.nanoseconds / 1000000
     )
@@ -38,17 +39,22 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center gap-2">
-          <Creator uid={data.userId} />
-          <span className="text-sm text-muted-foreground">
-            <time
-              className="whitespace-nowrap"
-              title={formatTime.title}
-              dateTime={formatTime.datetime}
-            >
-              {formatTime.relativeTime}
-            </time>
-          </span>
+        <div className="flex items-center justify-between gap-2">
+          {/* Right */}
+          <div className="flex flex-1 flex-wrap items-center gap-2">
+            <Creator uid={data.userId} />
+            <span className="text-sm text-muted-foreground">
+              <time
+                className="whitespace-nowrap"
+                title={format.title}
+                dateTime={format.datetime}
+              >
+                {format.relativeTime}
+              </time>
+            </span>
+          </div>
+          {/* Left */}
+          <Share id={data.id} />
         </div>
       </CardHeader>
       <CardContent>

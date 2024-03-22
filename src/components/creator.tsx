@@ -13,7 +13,6 @@ type CreatorProps = {
 const Creator: React.FC<CreatorProps> = ({ uid }) => {
   const { firestore } = useFirebaseDiscussion()
   const { profile, loading } = useUserProfile(firestore, "users", uid)
-  const fallbackDisplayName = profile?.displayName || `@${uid.slice(0, 5)}`
 
   if (loading)
     return (
@@ -25,10 +24,15 @@ const Creator: React.FC<CreatorProps> = ({ uid }) => {
   return (
     <Fragment>
       <Avatar>
-        <AvatarImage src={profile?.photoURL} alt={fallbackDisplayName} />
-        <AvatarFallback>{fallbackDisplayName.slice(1, 2)}</AvatarFallback>
+        <AvatarImage
+          src={profile?.photoURL}
+          alt={profile?.displayName || `@${uid}`}
+        />
+        <AvatarFallback>{profile?.displayName || "U"}</AvatarFallback>
       </Avatar>
-      <span className="text-ellipsis font-semibold">{fallbackDisplayName}</span>
+      <span className="text-ellipsis font-semibold">
+        {profile?.displayName || `@${uid}`}
+      </span>
     </Fragment>
   )
 }
