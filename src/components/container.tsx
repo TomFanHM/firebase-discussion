@@ -71,6 +71,9 @@ const Container: React.FC = () => {
   return (
     <Fragment>
       <Suspense fallback={<Skeleton className="h-6 w-full" />}>
+        <></>
+      </Suspense>
+      <Suspense fallback={<Skeleton className="h-6 w-full" />}>
         <Comments />
       </Suspense>
       <Suspense fallback={<Skeleton className="h-6 w-full" />}>
