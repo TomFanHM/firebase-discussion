@@ -1,5 +1,6 @@
 import React, { useState, useTransition } from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
+import { useAuthState } from "react-firebase-hooks/auth"
 
 import { createComment } from "@/lib/createComment"
 
@@ -12,7 +13,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 import { Textarea } from "./ui/textarea"
 
 const CommentInput: React.FC = () => {
-  const { firestore, identifier, user } = useFirebaseDiscussion()
+  const { firestore, identifier, auth } = useFirebaseDiscussion()
+  // User
+  const [user] = useAuthState(auth)
   // User input
   const [comment, setComment] = useState<string>("")
   const [_, startTransition] = useTransition()
@@ -21,8 +24,6 @@ const CommentInput: React.FC = () => {
       setComment(e.target.value)
     })
   }
-  // Placeholder
-  const placeholder = user ? "Write a comment" : "Sign in to comment"
   // Submit
   const [loading, setLoading] = useState<boolean>(false)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,7 +62,7 @@ const CommentInput: React.FC = () => {
             <TabsContent value="write">
               <div className="rounded-md focus-within:ring-1 focus-within:ring-ring">
                 <Textarea
-                  placeholder={placeholder}
+                  placeholder={user ? "Write a comment" : "Sign in to comment"}
                   disabled={!user}
                   className="max-h-[500px] min-h-[100px] focus-visible:ring-0"
                   value={comment}

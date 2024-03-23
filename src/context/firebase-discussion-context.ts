@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react"
-import type { Auth, User } from "firebase/auth"
+import type { Auth } from "firebase/auth"
 import type { Firestore } from "firebase/firestore"
 
 export type FirebaseDiscussionContextType = {
@@ -7,7 +7,6 @@ export type FirebaseDiscussionContextType = {
   auth: Auth
   usersCollection: string
   identifier: string
-  user: User | null | undefined
 }
 
 export const FirebaseDiscussionContext = createContext<

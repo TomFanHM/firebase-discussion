@@ -2,7 +2,6 @@ import React, { Fragment, lazy, Suspense, useEffect, useState } from "react"
 import { config } from "@/config"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { Status } from "@/types"
-import { doc, getDoc } from "firebase/firestore"
 
 import { createDiscussion } from "@/lib/createDiscussion"
 
@@ -54,6 +53,7 @@ const Container: React.FC = () => {
   useEffect(() => {
     async function initial() {
       try {
+        const { doc, getDoc } = await import("firebase/firestore") // Lazy import
         const docRef = doc(firestore, config.collection, identifier)
         const docSnap = await getDoc(docRef)
         if (!docSnap.exists()) await createDiscussion({ firestore, identifier })
