@@ -15,6 +15,14 @@ const Example: React.FC<ExampleProps> = ({ theme }) => {
         auth={auth}
         usersCollection="users"
         identifier="test-discussion"
+        oauthOptions={{
+          apple: false,
+          google: true,
+          github: false,
+          twitter: false,
+          facebook: false,
+          microsoft: false,
+        }}
       />
     </div>
   )

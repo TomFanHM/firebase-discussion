@@ -7,6 +7,14 @@ export type FirebaseDiscussionContextType = {
   auth: Auth
   usersCollection: string
   identifier: string
+  oauthOptions: {
+    apple: boolean
+    google: boolean
+    github: boolean
+    twitter: boolean
+    facebook: boolean
+    microsoft: boolean
+  }
 }
 
 export const FirebaseDiscussionContext = createContext<

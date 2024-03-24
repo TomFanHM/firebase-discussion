@@ -5,6 +5,7 @@ import { timestampToRelativeTime } from "@/lib/timestampToRelativeTime"
 
 import Creator from "./creator"
 import MarkdownRenderer from "./markdown-renderer"
+import ReactionsContainer from "./reactions-container"
 import Share from "./share"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
 
@@ -34,7 +35,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
   }, [data])
 
   return (
-    <Card>
+    <Card id={data.id}>
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           {/* Right */}
@@ -55,12 +56,13 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
         </div>
       </CardHeader>
       <CardContent>
+        {/* Content Render */}
         <MarkdownRenderer content={data.content} />
       </CardContent>
       <CardFooter>
         <div className="flex w-full items-center justify-between gap-2">
           {/* Reactions */}
-          <div></div>
+          <ReactionsContainer reactions={data.reactions} />
           {/* Replies */}
           <div className="whitespace-nowrap">
             <span className="text-sm text-muted-foreground">

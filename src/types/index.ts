@@ -22,7 +22,14 @@ export const Emoji = z.union([
 
 export type Emoji = z.infer<typeof Emoji>
 
-export const Reactions = z.record(z.string(), Emoji)
+export const UserVote = z
+  .record(Emoji, z.boolean().optional())
+  .optional()
+  .default({})
+
+export type UserVote = z.infer<typeof UserVote>
+
+export const Reactions = z.record(z.string(), UserVote) // User id, {Emoji: boolean}
 
 export type Reactions = z.infer<typeof Reactions>
 
