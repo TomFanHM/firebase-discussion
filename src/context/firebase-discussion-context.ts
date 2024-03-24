@@ -15,6 +15,7 @@ export type FirebaseDiscussionContextType = {
     facebook: boolean
     microsoft: boolean
   }
+  customLoginButton?: React.ReactNode
 }
 
 export const FirebaseDiscussionContext = createContext<

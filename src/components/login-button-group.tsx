@@ -11,9 +11,10 @@ import {
 } from "./oauth-buttons"
 
 const LoginButtonGroup: React.FC = () => {
-  const { auth, oauthOptions } = useFirebaseDiscussion()
+  const { auth, oauthOptions, customLoginButton } = useFirebaseDiscussion()
   return (
     <div className="flex flex-wrap gap-2">
+      {customLoginButton !== undefined && customLoginButton}
       {oauthOptions.apple && <AppleOauthButton auth={auth} />}
       {oauthOptions.facebook && <FacebookOauthButton auth={auth} />}
       {oauthOptions.github && <GithubOauthButton auth={auth} />}
