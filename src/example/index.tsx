@@ -5,9 +5,24 @@ import { auth, firestore } from "./firebase"
 
 type ExampleProps = {
   theme: "light" | "dark"
+
+  oauthApple: boolean
+  oauthGoogle: boolean
+  oauthGithub: boolean
+  oauthTwitter: boolean
+  oauthFacebook: boolean
+  oauthMicrosoft: boolean
 }
 
-const Example: React.FC<ExampleProps> = ({ theme }) => {
+const Example: React.FC<ExampleProps> = ({
+  theme,
+  oauthApple,
+  oauthFacebook,
+  oauthGithub,
+  oauthGoogle,
+  oauthMicrosoft,
+  oauthTwitter,
+}) => {
   return (
     <div className={theme}>
       <FirebaseDiscusion
@@ -16,12 +31,12 @@ const Example: React.FC<ExampleProps> = ({ theme }) => {
         usersCollection="users"
         identifier="test-discussion"
         oauthOptions={{
-          apple: false,
-          google: true,
-          github: false,
-          twitter: false,
-          facebook: false,
-          microsoft: false,
+          apple: oauthApple,
+          facebook: oauthFacebook,
+          github: oauthGithub,
+          google: oauthGoogle,
+          microsoft: oauthMicrosoft,
+          twitter: oauthTwitter,
         }}
       />
     </div>

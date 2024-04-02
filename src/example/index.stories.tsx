@@ -18,5 +18,12 @@ type Story = StoryObj<typeof Example>
 export const Default: Story = {
   args: {
     theme: "light",
+    // Oauth options
+    oauthApple: true,
+    oauthGoogle: true,
+    oauthGithub: true,
+    oauthTwitter: true,
+    oauthFacebook: true,
+    oauthMicrosoft: true,
   },
 }

@@ -1,13 +1,14 @@
 import React, { useMemo } from "react"
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { Comment } from "@/types"
 
 import { timestampToRelativeTime } from "@/lib/timestampToRelativeTime"
 
 import Creator from "./creator"
 import MarkdownRenderer from "./markdown-renderer"
-import ReactionsContainer from "./reactions-container"
 import Share from "./share"
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
+import UserReactions from "./user-reactions"
 
 type CommentCardProps = {
   data: {
@@ -16,6 +17,8 @@ type CommentCardProps = {
 }
 
 const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
+  const { identifier } = useFirebaseDiscussion()
+
   const format = useMemo(() => {
     const date = new Date(
       data.createdAt.seconds * 1000 + data.createdAt.nanoseconds / 1000000
@@ -62,7 +65,14 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
       <CardFooter>
         <div className="flex w-full items-center justify-between gap-2">
           {/* Reactions */}
-          <ReactionsContainer reactions={data.reactions} />
+          <UserReactions
+            reactions={data.reactions}
+            align="start"
+            action={{
+              category: "comment",
+              identifier: { discussion: identifier, comment: data.id },
+            }}
+          />
           {/* Replies */}
           <div className="whitespace-nowrap">
             <span className="text-sm text-muted-foreground">

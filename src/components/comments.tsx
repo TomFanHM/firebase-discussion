@@ -12,6 +12,8 @@ const Comments: React.FC = () => {
 
   if (loading) return <Skeleton className="h-6 w-full" />
 
+  if (comments.length === 0) return null
+
   return (
     <section className="flex w-full flex-col gap-4">
       {comments.map((comment, i) => (

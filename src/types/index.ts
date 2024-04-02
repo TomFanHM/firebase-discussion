@@ -66,3 +66,11 @@ export const Profile = z.object({
 })
 
 export type Profile = z.infer<typeof Profile>
+
+export type Action =
+  | { category: "discussion"; identifier: { discussion: string } }
+  | { category: "comment"; identifier: { discussion: string; comment: string } }
+  | {
+      category: "reply"
+      identifier: { discussion: string; comment: string; reply: string }
+    }
