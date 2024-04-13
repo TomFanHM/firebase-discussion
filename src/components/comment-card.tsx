@@ -67,7 +67,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
           {/* Reactions */}
           <UserReactions
             reactions={data.reactions}
-            align="start"
+            category="comment"
             action={{
               category: "comment",
               identifier: { discussion: identifier, comment: data.id },

@@ -5,7 +5,7 @@ import type { Firestore } from "firebase/firestore"
 export type FirebaseDiscussionContextType = {
   firestore: Firestore
   auth: Auth
-  usersCollection: string
+  usersCollection?: string // Firestore collection name for users
   identifier: string
   oauthOptions: {
     apple: boolean

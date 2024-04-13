@@ -3,7 +3,6 @@ import { Emoji, Reactions } from "@/types"
 import { User } from "firebase/auth"
 
 import { selectedEmoji } from "@/lib/selectedEmoji"
-import { updateReactions } from "@/lib/updateReactions"
 import { cn } from "@/lib/utils"
 
 import { emojis } from "./emoji"
@@ -14,13 +13,15 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 type ReactionsPopoverProps = {
   reactions: Reactions
   user: User | null | undefined
-  align: "start" | "center" | "end"
+  category: "discussion" | "comment" | "reply"
+  handleClick: (selectedEmoji: Emoji) => Promise<void>
 }
 
 const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
   reactions,
   user,
-  align,
+  category,
+  handleClick,
 }) => {
   const [picked, setPicked] = useState<string | null>(null)
 
@@ -39,7 +40,10 @@ const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
           <SmileSvg className="h-4 w-4 fill-current" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-60" align={align}>
+      <PopoverContent
+        className="w-60"
+        align={category === "discussion" ? "center" : "start"}
+      >
         <div className="border-b pb-2 text-popover-foreground/70">
           {user ? (
             <p>{picked ? picked : "Pick your reaction."}</p>
@@ -61,7 +65,7 @@ const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
                   "border-primary"
               )}
               disabled={!user}
-              onClick={() => updateReactions()}
+              onClick={() => handleClick(emoji as Emoji)}
             >
               <span className="sr-only">{emoji}</span>
               {emojis[emoji as Emoji]}

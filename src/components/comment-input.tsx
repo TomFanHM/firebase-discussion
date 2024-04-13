@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react"
+import React, { useState } from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { useAuthState } from "react-firebase-hooks/auth"
 
@@ -19,11 +19,8 @@ const CommentInput: React.FC = () => {
   const [user] = useAuthState(auth)
   // User input
   const [comment, setComment] = useState<string>("")
-  const [_, startTransition] = useTransition()
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    startTransition(() => {
-      setComment(e.target.value)
-    })
+    setComment(e.target.value)
   }
   // Submit
   const [loading, setLoading] = useState<boolean>(false)

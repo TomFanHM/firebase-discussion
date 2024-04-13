@@ -5,7 +5,6 @@ import { auth, firestore } from "./firebase"
 
 type ExampleProps = {
   theme: "light" | "dark"
-
   oauthApple: boolean
   oauthGoogle: boolean
   oauthGithub: boolean

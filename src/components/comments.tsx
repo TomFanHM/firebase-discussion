@@ -6,6 +6,7 @@ import useComments from "@/hooks/useComments"
 import CommentCard from "./comment-card"
 import { Skeleton } from "./ui/skeleton"
 
+// Fetch and display comments
 const Comments: React.FC = () => {
   const { firestore, identifier } = useFirebaseDiscussion()
   const { comments, loading } = useComments(firestore, identifier)

@@ -6,7 +6,5 @@ export function generateDocumentPath(action: Action): string {
     return `${config.collection}/${action.identifier.discussion}`
   if (action.category === "comment")
     return `${config.collection}/${action.identifier.discussion}/comments/${action.identifier.comment}`
-  if (action.category === "reply")
-    return `${config.collection}/${action.identifier.discussion}/comments/${action.identifier.comment}/replies/${action.identifier.reply}`
-  throw new Error("Invalid category")
+  return `${config.collection}/${action.identifier.discussion}/comments/${action.identifier.comment}/replies/${action.identifier.reply}`
 }

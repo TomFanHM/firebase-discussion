@@ -1,5 +1,10 @@
 import { Emoji, Reactions } from "@/types"
 
+/**
+ * [x: string]: Partial<Record<"like" | "dislike" | "laugh" | "hooray" | "confused" | "love" | "rocket" | "eyes", boolean | undefined>>
+ * Object.values => Partial<Record<"like" | "dislike" | "laugh" | "hooray" | "confused" | "love" | "rocket" | "eyes", boolean | undefined>>[]
+ */
+
 export function reactionsToCountMap(
   reactions: Reactions
 ): Record<Emoji, number> {
