@@ -6,10 +6,11 @@ type CreateDiscussionParmas = {
   firestore: Firestore
   identifier: string
 }
+
 export async function createDiscussion({
   firestore,
   identifier,
-}: CreateDiscussionParmas) {
+}: CreateDiscussionParmas): Promise<void> {
   const docRef = doc(firestore, config.collection, identifier)
   const temp: Discuss = {
     reactions: {},

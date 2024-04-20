@@ -3,7 +3,7 @@ import { Emoji, Reactions } from "@/types"
 import { User } from "firebase/auth"
 
 import { selectedEmoji } from "@/lib/selectedEmoji"
-import { cn } from "@/lib/utils"
+import { cn, getObjectKeys } from "@/lib/utils"
 
 import { emojis } from "./emoji"
 import { SmileSvg } from "./svg"
@@ -52,23 +52,22 @@ const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
           )}
         </div>
         <div className="mt-2 grid grid-cols-4 place-items-center gap-2">
-          {Object.keys(emojis).map((emoji) => (
+          {getObjectKeys(emojis).map((emoji) => (
             <Button
               key={emoji}
               variant="outline"
               size="icon"
-              onMouseEnter={() => handleHover(emoji as Emoji)}
+              onMouseEnter={() => handleHover(emoji)}
               onMouseLeave={handleLeave}
               className={cn(
                 "rounded-full",
-                selectedEmoji(user, reactions, emoji as Emoji) &&
-                  "border-primary"
+                selectedEmoji(user, reactions, emoji) && "border-primary"
               )}
               disabled={!user}
-              onClick={() => handleClick(emoji as Emoji)}
+              onClick={() => handleClick(emoji)}
             >
               <span className="sr-only">{emoji}</span>
-              {emojis[emoji as Emoji]}
+              {emojis[emoji]}
             </Button>
           ))}
         </div>

@@ -58,7 +58,9 @@ type CreatorProps = {
 
 const Creator: React.FC<CreatorProps> = ({ uid }) => {
   const { firestore, usersCollection } = useFirebaseDiscussion()
+
   if (!usersCollection) return <Fallback uid={uid} />
+
   return (
     <FetchCreator
       uid={uid}

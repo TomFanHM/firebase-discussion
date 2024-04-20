@@ -35,12 +35,12 @@ const UserReactions: React.FC<UserReactionsProps> = ({
   const handleClick = async (selectedEmoji: Emoji) => {
     // Skip if user is not signed in
     if (!user) return
-    const currentSelection = optimisticReactions[user.uid]?.[selectedEmoji]
+    const like = !!optimisticReactions[user.uid]?.[selectedEmoji]
     setOptimisticReactions((prev) => ({
       ...prev,
       [user.uid]: {
         ...prev[user.uid],
-        [selectedEmoji]: !currentSelection,
+        [selectedEmoji]: !like,
       },
     }))
     try {
@@ -49,6 +49,7 @@ const UserReactions: React.FC<UserReactionsProps> = ({
         user,
         path: generateDocumentPath(action),
         selectedEmoji,
+        like: !like,
       })
       if (!success) throw new Error("Failed to update reactions")
     } catch (error) {
@@ -57,7 +58,7 @@ const UserReactions: React.FC<UserReactionsProps> = ({
         ...prev,
         [user.uid]: {
           ...prev[user.uid],
-          [selectedEmoji]: currentSelection,
+          [selectedEmoji]: like,
         },
       }))
     }
