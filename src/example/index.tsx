@@ -5,38 +5,35 @@ import { auth, firestore } from "./firebase"
 
 type ExampleProps = {
   theme: "light" | "dark"
-  oauthApple: boolean
-  oauthGoogle: boolean
-  oauthGithub: boolean
-  oauthTwitter: boolean
-  oauthFacebook: boolean
-  oauthMicrosoft: boolean
+  appleProvider: boolean
+  facebookProvider: boolean
+  githubProvider: boolean
+  googleProvider: boolean
+  microsoftProvider: boolean
+  twitterProvider: boolean
 }
 
 const Example: React.FC<ExampleProps> = ({
   theme,
-  oauthApple,
-  oauthFacebook,
-  oauthGithub,
-  oauthGoogle,
-  oauthMicrosoft,
-  oauthTwitter,
+  appleProvider,
+  facebookProvider,
+  githubProvider,
+  googleProvider,
+  microsoftProvider,
+  twitterProvider,
 }) => {
   return (
     <div className={theme}>
       <FirebaseDiscusion
         firestore={firestore}
         auth={auth}
-        usersCollection="users"
         identifier="test-discussion"
-        oauthOptions={{
-          apple: oauthApple,
-          facebook: oauthFacebook,
-          github: oauthGithub,
-          google: oauthGoogle,
-          microsoft: oauthMicrosoft,
-          twitter: oauthTwitter,
-        }}
+        appleProvider={appleProvider}
+        facebookProvider={facebookProvider}
+        githubProvider={githubProvider}
+        googleProvider={googleProvider}
+        microsoftProvider={microsoftProvider}
+        twitterProvider={twitterProvider}
       />
     </div>
   )

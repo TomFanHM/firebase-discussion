@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 
 import useComments from "@/hooks/useComments"
@@ -16,11 +16,13 @@ const Comments: React.FC = () => {
   if (comments.length === 0) return null
 
   return (
-    <section className="flex w-full flex-col gap-4">
-      {comments.map((comment, i) => (
-        <CommentCard key={i} data={comment} />
-      ))}
-    </section>
+    <Fragment>
+      <section className="flex w-full flex-col gap-4">
+        {comments.map((comment, i) => (
+          <CommentCard key={i} data={comment} />
+        ))}
+      </section>
+    </Fragment>
   )
 }
 export default Comments

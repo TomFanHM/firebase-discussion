@@ -33,13 +33,13 @@ export const Reactions = z.record(z.string(), UserVote) // User id, {Emoji: bool
 
 export type Reactions = z.infer<typeof Reactions>
 
-export const Discuss = z.object({
+export const Discussion = z.object({
   reactions: Reactions.optional().default({}),
   comments: z.number().optional().default(0),
   replies: z.number().optional().default(0),
 })
 
-export type Discuss = z.infer<typeof Discuss>
+export type Discussion = z.infer<typeof Discussion>
 
 export const Comment = z.object({
   userId: z.string(),

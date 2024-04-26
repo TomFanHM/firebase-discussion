@@ -5,16 +5,14 @@ import type { Firestore } from "firebase/firestore"
 export type FirebaseDiscussionContextType = {
   firestore: Firestore
   auth: Auth
-  usersCollection?: string // Firestore collection name for users
   identifier: string
-  oauthOptions: {
-    apple: boolean
-    google: boolean
-    github: boolean
-    twitter: boolean
-    facebook: boolean
-    microsoft: boolean
-  }
+  usersCollection?: string
+  appleProvider?: boolean
+  googleProvider?: boolean
+  githubProvider?: boolean
+  twitterProvider?: boolean
+  facebookProvider?: boolean
+  microsoftProvider?: boolean
   customLoginButton?: React.ReactNode
 }
 

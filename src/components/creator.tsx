@@ -16,13 +16,7 @@ const Preloader = () => (
 
 // Fallback component for when usersCollection is undefined
 const Fallback = ({ uid }: { uid: string }) => (
-  <Fragment>
-    <Avatar>
-      <AvatarImage src="" alt={`@${uid}`} />
-      <AvatarFallback>U</AvatarFallback>
-    </Avatar>
-    <span className="text-ellipsis font-semibold">{`@${uid}`}</span>
-  </Fragment>
+  <span className="text-ellipsis font-semibold">{`user@${uid}`}</span>
 )
 
 type FetchCreatorProps = {

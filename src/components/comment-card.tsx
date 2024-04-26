@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
 import { Comment } from "@/types"
 
@@ -36,6 +36,9 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
     const relativeTime = timestampToRelativeTime(data.createdAt)
     return { title, datetime, relativeTime }
   }, [data])
+
+  //
+  const [entered, setEntered] = useState<boolean>(false)
 
   return (
     <Card id={data.id}>

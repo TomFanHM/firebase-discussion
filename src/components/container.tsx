@@ -8,6 +8,7 @@ import { createDiscussion } from "@/lib/createDiscussion"
 import { LoadingSpinner } from "./ui/loading-spinner"
 import { Skeleton } from "./ui/skeleton"
 
+const Header = lazy(() => import("./header"))
 const CommentInput = lazy(() => import("./comment-input"))
 const Comments = lazy(() => import("./comments"))
 
@@ -71,7 +72,7 @@ const Container: React.FC = () => {
   return (
     <Fragment>
       <Suspense fallback={<Skeleton className="h-6 w-full" />}>
-        <></>
+        <Header />
       </Suspense>
       <Suspense fallback={<Skeleton className="h-6 w-full" />}>
         <Comments />

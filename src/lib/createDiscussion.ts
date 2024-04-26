@@ -1,5 +1,5 @@
 import { config } from "@/config"
-import { Discuss } from "@/types"
+import { Discussion } from "@/types"
 import { doc, setDoc, type Firestore } from "firebase/firestore"
 
 type CreateDiscussionParmas = {
@@ -12,7 +12,7 @@ export async function createDiscussion({
   identifier,
 }: CreateDiscussionParmas): Promise<void> {
   const docRef = doc(firestore, config.collection, identifier)
-  const temp: Discuss = {
+  const temp: Discussion = {
     reactions: {},
     comments: 0,
     replies: 0,

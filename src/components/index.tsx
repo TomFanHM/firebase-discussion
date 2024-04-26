@@ -21,7 +21,7 @@ const FirebaseDiscuss = React.forwardRef<HTMLElement, FirebaseDiscussionProps>(
           }
         >
           <FirebaseDiscussionProvider {...props}>
-            <div className="flex w-full flex-col items-center gap-8">
+            <div className="flex w-full flex-col items-center gap-6">
               <Container />
             </div>
           </FirebaseDiscussionProvider>
