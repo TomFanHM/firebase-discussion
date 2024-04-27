@@ -4,11 +4,15 @@ import { Reply } from "@/types";
 import type { Firestore } from "firebase/firestore";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
+type ReplyDoc = {
+  id: string;
+} & Reply;
+
 const useReplies = (
   firestore: Firestore,
   identifier: { discussion: string; comment: string }
 ) => {
-  const [replies, setReplies] = useState<Reply[]>([]);
+  const [replies, setReplies] = useState<ReplyDoc[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

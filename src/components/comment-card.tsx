@@ -83,12 +83,15 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
       </CardContent>
       {/* Replies */}
       {data.replies > 0 && (
-        <CardContent className="p-0">
-          <Replies identifier={{ discussion: identifier, comment: data.id }} />
+        <CardContent className="border-t py-4">
+          <Replies
+            identifier={{ discussion: identifier, comment: data.id }}
+            repliesCount={data.replies}
+          />
         </CardContent>
       )}
       {/* Input */}
-      <CardFooter className="p-0">
+      <CardFooter className="border-t py-4">
         <ReplyInput identifier={{ discussion: identifier, comment: data.id }} />
       </CardFooter>
     </Card>

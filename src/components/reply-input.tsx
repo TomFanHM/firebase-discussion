@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import { createReply } from "@/lib/createReply";
+
 import MarkdownRenderer from "./markdown-renderer";
 import { MarkdownSvg } from "./svg";
 import { Button } from "./ui/button";
@@ -38,7 +40,13 @@ const ReplyInput: React.FC<ReplyInputProps> = ({ identifier }) => {
     if (!user || loading) return;
     setLoading(true);
     try {
-      //
+      const success = await createReply({
+        firestore,
+        identifier,
+        user,
+        content: reply,
+      });
+      if (success) setReply("");
     } catch (error) {
       console.log("🚀 ~ handleSubmit ~ error:", error);
     } finally {
@@ -51,28 +59,26 @@ const ReplyInput: React.FC<ReplyInputProps> = ({ identifier }) => {
 
   if (!focus)
     return (
-      <div className="w-full border-t px-6 py-2">
-        <Input
-          placeholder="Write a reply"
-          readOnly
-          onClick={() => setFocus(true)}
-        />
-      </div>
+      <Input
+        placeholder="Write a reply"
+        readOnly
+        onClick={() => setFocus(true)}
+      />
     );
 
   return (
-    <form className="w-full border-t" onSubmit={handleSubmit}>
+    <form className="w-full" onSubmit={handleSubmit}>
       <Tabs defaultValue="write" className="w-full">
         <Card className="border-none shadow-none">
           {/* Header */}
-          <CardHeader className="pb-0">
+          <CardHeader className="px-0 pb-0">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="write">Write</TabsTrigger>
               <TabsTrigger value="preview">Preview</TabsTrigger>
             </TabsList>
           </CardHeader>
           {/* Content */}
-          <CardContent className="py-2">
+          <CardContent className="px-0 py-2">
             <TabsContent value="write">
               <div className="rounded-md focus-within:ring-1 focus-within:ring-ring">
                 <Textarea
@@ -103,7 +109,7 @@ const ReplyInput: React.FC<ReplyInputProps> = ({ identifier }) => {
               </div>
             </TabsContent>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="px-0">
             <div className="flex flex-1 items-center justify-end gap-2">
               <Button
                 variant="outline"

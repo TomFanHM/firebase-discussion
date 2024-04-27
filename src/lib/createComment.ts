@@ -22,9 +22,9 @@ export async function createComment({
   user,
   content,
 }: CreateCommentParams): Promise<boolean> {
-  const discussRef = doc(firestore, config.collection, identifier);
+  const discussionRef = doc(firestore, config.collection, identifier);
   // Reference to the 'comments' sub-collection under the discussion document.
-  const commentsCollectionRef = collection(discussRef, "comments");
+  const commentsCollectionRef = collection(discussionRef, "comments");
   // Set the comment details
   await runTransaction(firestore, async (transaction) => {
     const commentRef = doc(commentsCollectionRef);
@@ -36,7 +36,7 @@ export async function createComment({
       replies: 0,
     });
     // Update the parent discussion document to increment the comment count by one.
-    transaction.update(discussRef, { comments: increment(1) });
+    transaction.update(discussionRef, { comments: increment(1) });
   });
 
   return true;
