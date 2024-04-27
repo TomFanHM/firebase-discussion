@@ -26,6 +26,7 @@ const CommentInput: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!comment) return;
     if (!user || loading) return;
     setLoading(true);
     try {
@@ -89,7 +90,7 @@ const CommentInput: React.FC = () => {
           <CardFooter>
             <div className="flex flex-1 items-center justify-between">
               {user ? <SignOutButton /> : <LoginButtonGroup />}
-              <Button type="submit" disabled={loading}>
+              <Button type="submit" disabled={loading || !comment}>
                 Submit
               </Button>
             </div>

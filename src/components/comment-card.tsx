@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
 import { Comment } from "@/types";
 
@@ -6,6 +6,8 @@ import { timestampToRelativeTime } from "@/lib/timestampToRelativeTime";
 
 import Creator from "./creator";
 import MarkdownRenderer from "./markdown-renderer";
+import Replies from "./replies";
+import ReplyInput from "./reply-input";
 import Share from "./share";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import UserReactions from "./user-reactions";
@@ -37,9 +39,6 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
     return { title, datetime, relativeTime };
   }, [data]);
 
-  //
-  const [focus, setFocus] = useState<boolean>(false);
-
   return (
     <Card id={data.id}>
       <CardHeader>
@@ -64,9 +63,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
       <CardContent>
         {/* Content Render */}
         <MarkdownRenderer content={data.content} />
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-center justify-between gap-2">
+        <div className="mt-6 flex w-full items-center justify-between gap-2">
           {/* Reactions */}
           <UserReactions
             reactions={data.reactions}
@@ -83,8 +80,17 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
             </span>
           </div>
         </div>
-      </CardFooter>
+      </CardContent>
       {/* Replies */}
+      {data.replies > 0 && (
+        <CardContent className="p-0">
+          <Replies identifier={{ discussion: identifier, comment: data.id }} />
+        </CardContent>
+      )}
+      {/* Input */}
+      <CardFooter className="p-0">
+        <ReplyInput identifier={{ discussion: identifier, comment: data.id }} />
+      </CardFooter>
     </Card>
   );
 };
