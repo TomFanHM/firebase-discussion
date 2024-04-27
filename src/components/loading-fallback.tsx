@@ -1,10 +1,10 @@
-import React from "react"
+import React from "react";
 
-import { LoadingSpinner } from "./ui/loading-spinner"
+import { LoadingSpinner } from "./ui/loading-spinner";
 
 type LoadingFallbackProps = {
-  customFallbackImagePath: string | undefined
-}
+  customFallbackImagePath: string | undefined;
+};
 
 const LoadingFallback: React.FC<LoadingFallbackProps> = ({
   customFallbackImagePath,
@@ -23,6 +23,6 @@ const LoadingFallback: React.FC<LoadingFallbackProps> = ({
         Loading Packages ...
       </span>
     </div>
-  )
-}
-export default LoadingFallback
+  );
+};
+export default LoadingFallback;

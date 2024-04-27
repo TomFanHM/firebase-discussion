@@ -1,6 +1,6 @@
-import type { StorybookConfig } from "@storybook/react-vite";
-import path from "path";
-import tsconfigPaths from "vite-tsconfig-paths";
+import path from "path"
+import type { StorybookConfig } from "@storybook/react-vite"
+import tsconfigPaths from "vite-tsconfig-paths"
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
+    "storybook-dark-mode",
   ],
   framework: {
     name: "@storybook/react-vite",
@@ -23,9 +24,9 @@ const config: StorybookConfig = {
       tsconfigPaths({
         projects: [path.resolve(path.dirname(__dirname), "tsconfig.json")],
       })
-    );
+    )
 
-    return config;
+    return config
   },
-};
-export default config;
+}
+export default config

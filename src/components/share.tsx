@@ -1,16 +1,16 @@
-import React, { useState } from "react"
-import { Label } from "@radix-ui/react-label"
+import React, { useState } from "react";
+import { Label } from "@radix-ui/react-label";
 
-import { socialMediaPlatforms } from "./social-media-platforms"
-import { CopySvg, ShareSvg, SuccessSvg } from "./svg"
-import { Button } from "./ui/button"
+import { socialMediaPlatforms } from "./social-media-platforms";
+import { CopySvg, ShareSvg, SuccessSvg } from "./svg";
+import { Button } from "./ui/button";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel"
+} from "./ui/carousel";
 import {
   Dialog,
   DialogClose,
@@ -19,15 +19,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog"
-import { Input } from "./ui/input"
+} from "./ui/dialog";
+import { Input } from "./ui/input";
 
 type SocialMediaShareProps = {
-  id: string
-}
+  id: string;
+};
 
 const SocialMediaShare: React.FC<SocialMediaShareProps> = ({ id }) => {
-  const pageUrl = window.location.href + `#${id}`
+  const pageUrl = window.location.href + `#${id}`;
   return (
     <Carousel
       className="w-full max-w-full"
@@ -59,25 +59,25 @@ const SocialMediaShare: React.FC<SocialMediaShareProps> = ({ id }) => {
       <CarouselPrevious className="left-0" />
       <CarouselNext className="right-0" />
     </Carousel>
-  )
-}
+  );
+};
 
 type ShareProps = {
-  id: string
-}
+  id: string;
+};
 
 const Share: React.FC<ShareProps> = ({ id }) => {
-  const pageUrl = window.location.href + `#${id}`
+  const pageUrl = window.location.href + `#${id}`;
 
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
   const handleClick = async () => {
     // Copy to clipboard
-    await navigator.clipboard.writeText(pageUrl)
-    setCopied(true)
+    await navigator.clipboard.writeText(pageUrl);
+    setCopied(true);
     setTimeout(() => {
-      setCopied(false)
-    }, 2000)
-  }
+      setCopied(false);
+    }, 2000);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -127,6 +127,6 @@ const Share: React.FC<ShareProps> = ({ id }) => {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
-}
-export default Share
+  );
+};
+export default Share;

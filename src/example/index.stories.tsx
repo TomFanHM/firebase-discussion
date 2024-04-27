@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from "@storybook/react"
+import { Meta, StoryObj } from "@storybook/react";
 
-import Example from "."
+import Example from ".";
 
 const meta: Meta<typeof Example> = {
   title: "Components/Example",
@@ -9,15 +9,14 @@ const meta: Meta<typeof Example> = {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Example>
+type Story = StoryObj<typeof Example>;
 
 export const Default: Story = {
   args: {
-    theme: "light",
     appleProvider: true,
     facebookProvider: true,
     githubProvider: true,
@@ -25,4 +24,4 @@ export const Default: Story = {
     microsoftProvider: true,
     twitterProvider: true,
   },
-}
+};

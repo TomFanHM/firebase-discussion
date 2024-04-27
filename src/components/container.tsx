@@ -1,16 +1,16 @@
-import React, { Fragment, lazy, Suspense, useEffect, useState } from "react"
-import { config } from "@/config"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
-import { Status } from "@/types"
+import React, { Fragment, lazy, Suspense, useEffect, useState } from "react";
+import { config } from "@/config";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
+import { Status } from "@/types";
 
-import { createDiscussion } from "@/lib/createDiscussion"
+import { createDiscussion } from "@/lib/createDiscussion";
 
-import { LoadingSpinner } from "./ui/loading-spinner"
-import { Skeleton } from "./ui/skeleton"
+import { LoadingSpinner } from "./ui/loading-spinner";
+import { Skeleton } from "./ui/skeleton";
 
-const Header = lazy(() => import("./header"))
-const CommentInput = lazy(() => import("./comment-input"))
-const Comments = lazy(() => import("./comments"))
+const Header = lazy(() => import("./header"));
+const CommentInput = lazy(() => import("./comment-input"));
+const Comments = lazy(() => import("./comments"));
 
 const PendingInterface = () => {
   return (
@@ -20,8 +20,8 @@ const PendingInterface = () => {
         Loading Comments ...
       </span>
     </div>
-  )
-}
+  );
+};
 
 const ErrorInterface = () => {
   return (
@@ -44,31 +44,32 @@ const ErrorInterface = () => {
         Oops! Something went wrong. Please try reloading the page.
       </span>
     </div>
-  )
-}
+  );
+};
 
 const Container: React.FC = () => {
-  const { firestore, identifier } = useFirebaseDiscussion()
-  const [status, setStatus] = useState<Status>("pending")
+  const { firestore, identifier } = useFirebaseDiscussion();
+  const [status, setStatus] = useState<Status>("pending");
 
   useEffect(() => {
     async function initial() {
       try {
-        const { doc, getDoc } = await import("firebase/firestore") // Lazy import
-        const docRef = doc(firestore, config.collection, identifier)
-        const docSnap = await getDoc(docRef)
-        if (!docSnap.exists()) await createDiscussion({ firestore, identifier })
-        setStatus("success")
+        const { doc, getDoc } = await import("firebase/firestore"); // Lazy import
+        const docRef = doc(firestore, config.collection, identifier);
+        const docSnap = await getDoc(docRef);
+        if (!docSnap.exists())
+          await createDiscussion({ firestore, identifier });
+        setStatus("success");
       } catch (error) {
-        console.log("🚀 ~ initial ~ error:", error)
-        setStatus("error")
+        console.log("🚀 ~ initial ~ error:", error);
+        setStatus("error");
       }
     }
-    initial()
-  }, [firestore, identifier])
+    initial();
+  }, [firestore, identifier]);
 
-  if (status === "pending") return <PendingInterface />
-  if (status === "error") return <ErrorInterface />
+  if (status === "pending") return <PendingInterface />;
+  if (status === "error") return <ErrorInterface />;
   return (
     <Fragment>
       <Suspense fallback={<Skeleton className="h-6 w-full" />}>
@@ -81,6 +82,6 @@ const Container: React.FC = () => {
         <CommentInput />
       </Suspense>
     </Fragment>
-  )
-}
-export default Container
+  );
+};
+export default Container;

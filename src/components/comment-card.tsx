@@ -1,28 +1,28 @@
-import React, { useMemo, useState } from "react"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
-import { Comment } from "@/types"
+import React, { useMemo, useState } from "react";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
+import { Comment } from "@/types";
 
-import { timestampToRelativeTime } from "@/lib/timestampToRelativeTime"
+import { timestampToRelativeTime } from "@/lib/timestampToRelativeTime";
 
-import Creator from "./creator"
-import MarkdownRenderer from "./markdown-renderer"
-import Share from "./share"
-import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
-import UserReactions from "./user-reactions"
+import Creator from "./creator";
+import MarkdownRenderer from "./markdown-renderer";
+import Share from "./share";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import UserReactions from "./user-reactions";
 
 type CommentCardProps = {
   data: {
-    id: string
-  } & Comment
-}
+    id: string;
+  } & Comment;
+};
 
 const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
-  const { identifier } = useFirebaseDiscussion()
+  const { identifier } = useFirebaseDiscussion();
 
   const format = useMemo(() => {
     const date = new Date(
       data.createdAt.seconds * 1000 + data.createdAt.nanoseconds / 1000000
-    )
+    );
     const title = date.toLocaleString("en-US", {
       year: "numeric",
       month: "long",
@@ -31,14 +31,14 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
       minute: "numeric",
       timeZoneName: "short",
       timeZone: "GMT",
-    })
-    const datetime = date.toISOString()
-    const relativeTime = timestampToRelativeTime(data.createdAt)
-    return { title, datetime, relativeTime }
-  }, [data])
+    });
+    const datetime = date.toISOString();
+    const relativeTime = timestampToRelativeTime(data.createdAt);
+    return { title, datetime, relativeTime };
+  }, [data]);
 
   //
-  const [entered, setEntered] = useState<boolean>(false)
+  const [focus, setFocus] = useState<boolean>(false);
 
   return (
     <Card id={data.id}>
@@ -84,8 +84,9 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
           </div>
         </div>
       </CardFooter>
+      {/* Replies */}
     </Card>
-  )
-}
+  );
+};
 
-export default CommentCard
+export default CommentCard;

@@ -1,6 +1,6 @@
 // Edit atomDark theme from react-syntax-highlighter, set background to transparent
 export const atomDark: {
-  [key: string]: React.CSSProperties
+  [key: string]: React.CSSProperties;
 } = {
   'code[class*="language-"]': {
     color: "#c5c8c6",
@@ -155,4 +155,4 @@ export const atomDark: {
   italic: {
     fontStyle: "italic",
   },
-}
+};

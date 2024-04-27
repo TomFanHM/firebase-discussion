@@ -1,19 +1,19 @@
-import React, { Fragment } from "react"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
+import React, { Fragment } from "react";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
 
-import useComments from "@/hooks/useComments"
+import useComments from "@/hooks/useComments";
 
-import CommentCard from "./comment-card"
-import { Skeleton } from "./ui/skeleton"
+import CommentCard from "./comment-card";
+import { Skeleton } from "./ui/skeleton";
 
 // Fetch and display comments
 const Comments: React.FC = () => {
-  const { firestore, identifier } = useFirebaseDiscussion()
-  const { comments, loading } = useComments(firestore, identifier)
+  const { firestore, identifier } = useFirebaseDiscussion();
+  const { comments, loading } = useComments(firestore, identifier);
 
-  if (loading) return <Skeleton className="h-6 w-full" />
+  if (loading) return <Skeleton className="h-6 w-full" />;
 
-  if (comments.length === 0) return null
+  if (comments.length === 0) return null;
 
   return (
     <Fragment>
@@ -23,6 +23,6 @@ const Comments: React.FC = () => {
         ))}
       </section>
     </Fragment>
-  )
-}
-export default Comments
+  );
+};
+export default Comments;

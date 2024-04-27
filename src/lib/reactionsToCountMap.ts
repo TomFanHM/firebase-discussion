@@ -1,4 +1,4 @@
-import { Emoji, Reactions } from "@/types"
+import { Emoji, Reactions } from "@/types";
 
 /**
  * [x: string]: Partial<Record<"like" | "dislike" | "laugh" | "hooray" | "confused" | "love" | "rocket" | "eyes", boolean | undefined>>
@@ -17,15 +17,15 @@ export function reactionsToCountMap(
     love: 0,
     rocket: 0,
     eyes: 0,
-  }
+  };
 
   for (const userReactions of Object.values(reactions)) {
     for (const emoji in userReactions) {
       if (userReactions[emoji as Emoji]) {
-        temp[emoji as Emoji]++
+        temp[emoji as Emoji]++;
       }
     }
   }
 
-  return temp
+  return temp;
 }

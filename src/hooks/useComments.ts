@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
-import { config } from "@/config"
-import { Comment } from "@/types"
-import type { Firestore } from "firebase/firestore"
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
+import { useEffect, useState } from "react";
+import { config } from "@/config";
+import { Comment } from "@/types";
+import type { Firestore } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 type CommentDoc = {
-  id: string
-} & Comment
+  id: string;
+} & Comment;
 
 const useComments = (firestore: Firestore, identifier: string) => {
-  const [comments, setComments] = useState<CommentDoc[]>([])
-  const [loading, setLoading] = useState(true)
+  const [comments, setComments] = useState<CommentDoc[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -20,24 +20,24 @@ const useComments = (firestore: Firestore, identifier: string) => {
       ),
       (snapshot) => {
         const fetchedComments = snapshot.docs.map((doc) => {
-          const parse = Comment.parse(doc.data())
+          const parse = Comment.parse(doc.data());
           return {
             id: doc.id,
             ...parse,
-          }
-        })
-        setComments(fetchedComments)
-        setLoading(false)
+          };
+        });
+        setComments(fetchedComments);
+        setLoading(false);
       },
       (error) => {
-        console.log("🚀 ~ useEffect ~ error:", error)
+        console.log("🚀 ~ useEffect ~ error:", error);
       }
-    )
+    );
 
-    return () => unsubscribe() // Clean up the subscription on unmount
-  }, [firestore, identifier])
+    return () => unsubscribe(); // Clean up the subscription on unmount
+  }, [firestore, identifier]);
 
-  return { comments, loading }
-}
+  return { comments, loading };
+};
 
-export default useComments
+export default useComments;

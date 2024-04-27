@@ -1,13 +1,13 @@
-import React, { Suspense } from "react"
-import { FirebaseDiscussionProvider } from "@/context"
-import { FirebaseDiscussionContextType } from "@/context/firebase-discussion-context"
+import React, { Suspense } from "react";
+import { FirebaseDiscussionProvider } from "@/context";
+import { FirebaseDiscussionContextType } from "@/context/firebase-discussion-context";
 
-import Container from "./container"
-import LoadingFallback from "./loading-fallback"
+import Container from "./container";
+import LoadingFallback from "./loading-fallback";
 
 type FirebaseDiscussionProps = {
-  customFallbackImagePath?: string
-} & FirebaseDiscussionContextType
+  customFallbackImagePath?: string;
+} & FirebaseDiscussionContextType;
 
 const FirebaseDiscuss = React.forwardRef<HTMLElement, FirebaseDiscussionProps>(
   ({ customFallbackImagePath, ...props }, ref) => {
@@ -27,8 +27,8 @@ const FirebaseDiscuss = React.forwardRef<HTMLElement, FirebaseDiscussionProps>(
           </FirebaseDiscussionProvider>
         </Suspense>
       </section>
-    )
+    );
   }
-)
+);
 
-export default FirebaseDiscuss
+export default FirebaseDiscuss;

@@ -1,28 +1,28 @@
-import React, { useState } from "react"
-import ReactMarkdown from "react-markdown"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import rehypeExternalLinks from "rehype-external-links"
-import rehypeRaw from "rehype-raw"
-import rehypeSanitize from "rehype-sanitize"
-import remarkGfm from "remark-gfm"
+import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import rehypeExternalLinks from "rehype-external-links";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
 
-import { atomDark } from "./atom-dark"
-import { CopySvg, SuccessSvg } from "./svg"
-import { Button } from "./ui/button"
+import { atomDark } from "./atom-dark";
+import { CopySvg, SuccessSvg } from "./svg";
+import { Button } from "./ui/button";
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLPreElement> {}
 
 const CopyButton: React.FC<CopyButtonProps> = ({ children }) => {
-  const [copied, setCopied] = useState<boolean>(false)
+  const [copied, setCopied] = useState<boolean>(false);
   const handleClick = () => {
     if (React.isValidElement(children)) {
-      navigator.clipboard.writeText(children.props.children)
+      navigator.clipboard.writeText(children.props.children);
     }
-    setCopied(true)
+    setCopied(true);
     setTimeout(() => {
-      setCopied(false)
-    }, 2000)
-  }
+      setCopied(false);
+    }, 2000);
+  };
   return (
     <Button
       variant="default"
@@ -36,12 +36,12 @@ const CopyButton: React.FC<CopyButtonProps> = ({ children }) => {
         <CopySvg className="h-4 w-4 fill-current" aria-label="hidden" />
       )}
     </Button>
-  )
-}
+  );
+};
 
 type MarkdownRendererProps = {
-  content: string
-}
+  content: string;
+};
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   return (
@@ -51,7 +51,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
       remarkPlugins={[remarkGfm]}
       components={{
         code({ ref, children, className, node, style, ...rest }) {
-          const match = /language-(\w+)/.exec(className || "")
+          const match = /language-(\w+)/.exec(className || "");
           return match ? (
             <SyntaxHighlighter
               {...rest}
@@ -64,7 +64,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             <code {...rest} className={className}>
               {children}
             </code>
-          )
+          );
         },
         pre({ children, style }) {
           return (
@@ -72,12 +72,12 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
               <CopyButton>{children}</CopyButton>
               <pre>{children}</pre>
             </div>
-          )
+          );
         },
       }}
     >
       {content}
     </ReactMarkdown>
-  )
-}
-export default MarkdownRenderer
+  );
+};
+export default MarkdownRenderer;

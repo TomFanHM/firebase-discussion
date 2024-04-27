@@ -1,21 +1,21 @@
-import React, { useState } from "react"
-import { Emoji, Reactions } from "@/types"
-import { User } from "firebase/auth"
+import React, { useState } from "react";
+import { Emoji, Reactions } from "@/types";
+import type { User } from "firebase/auth";
 
-import { selectedEmoji } from "@/lib/selectedEmoji"
-import { cn, getObjectKeys } from "@/lib/utils"
+import { selectedEmoji } from "@/lib/selectedEmoji";
+import { cn, getObjectKeys } from "@/lib/utils";
 
-import { emojis } from "./emoji"
-import { SmileSvg } from "./svg"
-import { Button } from "./ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { emojis } from "./emoji";
+import { SmileSvg } from "./svg";
+import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 type ReactionsPopoverProps = {
-  reactions: Reactions
-  user: User | null | undefined
-  category: "discussion" | "comment" | "reply"
-  handleClick: (selectedEmoji: Emoji) => Promise<void>
-}
+  reactions: Reactions;
+  user: User | null | undefined;
+  category: "discussion" | "comment" | "reply";
+  handleClick: (selectedEmoji: Emoji) => Promise<void>;
+};
 
 const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
   reactions,
@@ -23,15 +23,15 @@ const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
   category,
   handleClick,
 }) => {
-  const [picked, setPicked] = useState<string | null>(null)
+  const [picked, setPicked] = useState<string | null>(null);
 
   const handleHover = (emoji: Emoji) => {
-    setPicked(emoji)
-  }
+    setPicked(emoji);
+  };
 
   const handleLeave = () => {
-    setPicked(null)
-  }
+    setPicked(null);
+  };
 
   return (
     <Popover>
@@ -73,6 +73,6 @@ const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
         </div>
       </PopoverContent>
     </Popover>
-  )
-}
-export default ReactionsPopover
+  );
+};
+export default ReactionsPopover;

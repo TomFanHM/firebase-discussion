@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 import {
   FacebookSvg,
@@ -9,12 +9,12 @@ import {
   TumblrSvg,
   TwitterSvg,
   WhatsAppSvg,
-} from "./svg"
+} from "./svg";
 
 export const socialMediaPlatforms: {
-  name: string
-  baseSrc: string
-  icon: React.FC<React.SVGProps<SVGSVGElement>>
+  name: string;
+  baseSrc: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
 }[] = [
   {
     name: "Facebook",
@@ -56,4 +56,4 @@ export const socialMediaPlatforms: {
     baseSrc: "https://telegram.me/share/url?url=",
     icon: (props) => <TelegramSvg {...props} />,
   },
-]
+];

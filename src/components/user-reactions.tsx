@@ -1,48 +1,48 @@
-import React, { useState } from "react"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
-import { Action, Emoji, Reactions } from "@/types"
-import { useAuthState } from "react-firebase-hooks/auth"
+import React, { useState } from "react";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
+import { Action, Emoji, Reactions } from "@/types";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import { generateDocumentPath } from "@/lib/generateDocumentPath"
-import { reactionsToCountMap } from "@/lib/reactionsToCountMap"
-import { selectedEmoji } from "@/lib/selectedEmoji"
-import { updateReactions } from "@/lib/updateReactions"
-import { cn } from "@/lib/utils"
+import { generateDocumentPath } from "@/lib/generateDocumentPath";
+import { reactionsToCountMap } from "@/lib/reactionsToCountMap";
+import { selectedEmoji } from "@/lib/selectedEmoji";
+import { updateReactions } from "@/lib/updateReactions";
+import { cn } from "@/lib/utils";
 
-import { emojis } from "./emoji"
-import ReactionsPopover from "./reactions-popover"
-import { Button } from "./ui/button"
+import { emojis } from "./emoji";
+import ReactionsPopover from "./reactions-popover";
+import { Button } from "./ui/button";
 
 type UserReactionsProps = {
-  reactions: Reactions
-  category: "discussion" | "comment" | "reply"
-  action: Action
-}
+  reactions: Reactions;
+  category: "discussion" | "comment" | "reply";
+  action: Action;
+};
 
 const UserReactions: React.FC<UserReactionsProps> = ({
   reactions,
   category,
   action,
 }) => {
-  const { firestore, auth } = useFirebaseDiscussion()
+  const { firestore, auth } = useFirebaseDiscussion();
   // User
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
   // User actions
   // Optimistic UI Updates
   const [optimisticReactions, setOptimisticReactions] =
-    useState<Reactions>(reactions)
+    useState<Reactions>(reactions);
 
   const handleClick = async (selectedEmoji: Emoji) => {
     // Skip if user is not signed in
-    if (!user) return
-    const like = !!optimisticReactions[user.uid]?.[selectedEmoji]
+    if (!user) return;
+    const like = !!optimisticReactions[user.uid]?.[selectedEmoji];
     setOptimisticReactions((prev) => ({
       ...prev,
       [user.uid]: {
         ...prev[user.uid],
         [selectedEmoji]: !like,
       },
-    }))
+    }));
     try {
       const success = await updateReactions({
         firestore,
@@ -50,19 +50,19 @@ const UserReactions: React.FC<UserReactionsProps> = ({
         path: generateDocumentPath(action),
         selectedEmoji,
         like: !like,
-      })
-      if (!success) throw new Error("Failed to update reactions")
+      });
+      if (!success) throw new Error("Failed to update reactions");
     } catch (error) {
-      console.log("🚀 ~ handleClick ~ error:", error)
+      console.log("🚀 ~ handleClick ~ error:", error);
       setOptimisticReactions((prev) => ({
         ...prev,
         [user.uid]: {
           ...prev[user.uid],
           [selectedEmoji]: like,
         },
-      }))
+      }));
     }
-  }
+  };
 
   return (
     <div
@@ -82,7 +82,7 @@ const UserReactions: React.FC<UserReactionsProps> = ({
       {Object.entries(reactionsToCountMap(optimisticReactions)).map(
         ([emoji, count]) => {
           // Skip if count is less than 1
-          if (count < 1) return null
+          if (count < 1) return null;
           return (
             <Button
               key={emoji}
@@ -100,10 +100,10 @@ const UserReactions: React.FC<UserReactionsProps> = ({
               <span>{emojis[emoji as Emoji]}</span>
               <span>{count}</span>
             </Button>
-          )
+          );
         }
       )}
     </div>
-  )
-}
-export default UserReactions
+  );
+};
+export default UserReactions;

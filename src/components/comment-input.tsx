@@ -1,33 +1,33 @@
-import React, { useState } from "react"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
-import { useAuthState } from "react-firebase-hooks/auth"
+import React, { useState } from "react";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import { createComment } from "@/lib/createComment"
+import { createComment } from "@/lib/createComment";
 
-import LoginButtonGroup from "./login-button-group"
-import MarkdownRenderer from "./markdown-renderer"
-import SignOutButton from "./sign-out-button"
-import { MarkdownSvg } from "./svg"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardFooter, CardHeader } from "./ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
-import { Textarea } from "./ui/textarea"
+import LoginButtonGroup from "./login-button-group";
+import MarkdownRenderer from "./markdown-renderer";
+import SignOutButton from "./sign-out-button";
+import { MarkdownSvg } from "./svg";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Textarea } from "./ui/textarea";
 
 const CommentInput: React.FC = () => {
-  const { firestore, identifier, auth } = useFirebaseDiscussion()
+  const { firestore, identifier, auth } = useFirebaseDiscussion();
   // User
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
   // User input
-  const [comment, setComment] = useState<string>("")
+  const [comment, setComment] = useState<string>("");
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value)
-  }
+    setComment(e.target.value);
+  };
   // Submit
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (!user || loading) return
-    setLoading(true)
+    e.preventDefault();
+    if (!user || loading) return;
+    setLoading(true);
     try {
       // Create comment
       const success = await createComment({
@@ -35,14 +35,14 @@ const CommentInput: React.FC = () => {
         identifier,
         user,
         content: comment,
-      })
-      if (success) setComment("") // Clear input
+      });
+      if (success) setComment(""); // Clear input
     } catch (error) {
-      console.log("🚀 ~ handleSubmit ~ error:", error)
+      console.log("🚀 ~ handleSubmit ~ error:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <form className="w-full" onSubmit={handleSubmit}>
@@ -97,6 +97,6 @@ const CommentInput: React.FC = () => {
         </Card>
       </Tabs>
     </form>
-  )
-}
-export default CommentInput
+  );
+};
+export default CommentInput;

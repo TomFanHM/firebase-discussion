@@ -1,4 +1,4 @@
-import { Emoji } from "@/types"
+import { Emoji } from "@/types";
 
 export const emojis: Record<Emoji, string> = {
   like: "👍",
@@ -9,4 +9,4 @@ export const emojis: Record<Emoji, string> = {
   love: "😍",
   rocket: "🚀",
   eyes: "👀",
-}
+};

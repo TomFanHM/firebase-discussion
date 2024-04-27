@@ -1,39 +1,49 @@
-import React, { Fragment } from "react"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
-import type { Firestore } from "firebase/firestore"
+import React, { Fragment } from "react";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
+import type { Firestore } from "firebase/firestore";
 
-import useUserProfile from "@/hooks/useUserProfile"
+import useUserProfile from "@/hooks/useUserProfile";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
-import { Skeleton } from "./ui/skeleton"
+import { UserSvg } from "./svg";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Skeleton } from "./ui/skeleton";
 
 const Preloader = () => (
   <Fragment>
     <Skeleton className="h-10 w-10 rounded-full" />
     <Skeleton className="h-6 w-20" />
   </Fragment>
-)
+);
 
 // Fallback component for when usersCollection is undefined
-const Fallback = ({ uid }: { uid: string }) => (
-  <span className="text-ellipsis font-semibold">{`user@${uid}`}</span>
-)
+const Fallback = ({ uid }: { uid: string }) => {
+  return (
+    <Fragment>
+      <Avatar>
+        <AvatarFallback>
+          <UserSvg aria-hidden="true" className="h-4 w-4 fill-current" />
+        </AvatarFallback>
+      </Avatar>
+      <span className="text-ellipsis font-semibold">{`@user-${uid}`}</span>
+    </Fragment>
+  );
+};
 
 type FetchCreatorProps = {
-  uid: string
-  firestore: Firestore
-  usersCollection: string
-}
+  uid: string;
+  firestore: Firestore;
+  usersCollection: string;
+};
 
 const FetchCreator = ({
   uid,
   firestore,
   usersCollection,
 }: FetchCreatorProps) => {
-  const { profile, loading } = useUserProfile(firestore, usersCollection, uid)
+  const { profile, loading } = useUserProfile(firestore, usersCollection, uid);
 
-  if (loading) return <Preloader />
-  if (!profile) return <Fallback uid={uid} />
+  if (loading) return <Preloader />;
+  if (!profile) return <Fallback uid={uid} />;
 
   return (
     <Fragment>
@@ -43,17 +53,17 @@ const FetchCreator = ({
       </Avatar>
       <span className="text-ellipsis font-semibold">{profile.displayName}</span>
     </Fragment>
-  )
-}
+  );
+};
 
 type CreatorProps = {
-  uid: string
-}
+  uid: string;
+};
 
 const Creator: React.FC<CreatorProps> = ({ uid }) => {
-  const { firestore, usersCollection } = useFirebaseDiscussion()
+  const { firestore, usersCollection } = useFirebaseDiscussion();
 
-  if (!usersCollection) return <Fallback uid={uid} />
+  if (!usersCollection) return <Fallback uid={uid} />;
 
   return (
     <FetchCreator
@@ -61,6 +71,6 @@ const Creator: React.FC<CreatorProps> = ({ uid }) => {
       firestore={firestore}
       usersCollection={usersCollection}
     />
-  )
-}
-export default Creator
+  );
+};
+export default Creator;

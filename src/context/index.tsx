@@ -1,13 +1,13 @@
-import React from "react"
+import React from "react";
 
 import {
   FirebaseDiscussionContext,
   FirebaseDiscussionContextType,
-} from "./firebase-discussion-context"
+} from "./firebase-discussion-context";
 
 type FirebaseDiscussionProviderProps = {
-  children: React.ReactNode
-} & FirebaseDiscussionContextType
+  children: React.ReactNode;
+} & FirebaseDiscussionContextType;
 
 export const FirebaseDiscussionProvider: React.FC<
   FirebaseDiscussionProviderProps
@@ -16,5 +16,5 @@ export const FirebaseDiscussionProvider: React.FC<
     <FirebaseDiscussionContext.Provider value={{ ...rest }}>
       {children}
     </FirebaseDiscussionContext.Provider>
-  )
-}
+  );
+};

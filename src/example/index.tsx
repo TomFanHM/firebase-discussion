@@ -1,20 +1,18 @@
-import React from "react"
-import FirebaseDiscusion from "@/components"
+import React from "react";
+import FirebaseDiscussion from "@/components";
 
-import { auth, firestore } from "./firebase"
+import { auth, firestore } from "./firebase";
 
 type ExampleProps = {
-  theme: "light" | "dark"
-  appleProvider: boolean
-  facebookProvider: boolean
-  githubProvider: boolean
-  googleProvider: boolean
-  microsoftProvider: boolean
-  twitterProvider: boolean
-}
+  appleProvider: boolean;
+  facebookProvider: boolean;
+  githubProvider: boolean;
+  googleProvider: boolean;
+  microsoftProvider: boolean;
+  twitterProvider: boolean;
+};
 
 const Example: React.FC<ExampleProps> = ({
-  theme,
   appleProvider,
   facebookProvider,
   githubProvider,
@@ -23,19 +21,17 @@ const Example: React.FC<ExampleProps> = ({
   twitterProvider,
 }) => {
   return (
-    <div className={theme}>
-      <FirebaseDiscusion
-        firestore={firestore}
-        auth={auth}
-        identifier="test-discussion"
-        appleProvider={appleProvider}
-        facebookProvider={facebookProvider}
-        githubProvider={githubProvider}
-        googleProvider={googleProvider}
-        microsoftProvider={microsoftProvider}
-        twitterProvider={twitterProvider}
-      />
-    </div>
-  )
-}
-export default Example
+    <FirebaseDiscussion
+      firestore={firestore}
+      auth={auth}
+      identifier="test-discussion"
+      appleProvider={appleProvider}
+      facebookProvider={facebookProvider}
+      githubProvider={githubProvider}
+      googleProvider={googleProvider}
+      microsoftProvider={microsoftProvider}
+      twitterProvider={twitterProvider}
+    />
+  );
+};
+export default Example;

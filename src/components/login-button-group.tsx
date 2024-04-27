@@ -1,5 +1,5 @@
-import React from "react"
-import { useFirebaseDiscussion } from "@/context/firebase-discussion-context"
+import React from "react";
+import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
 
 import {
   AppleOauthButton,
@@ -8,7 +8,7 @@ import {
   GoogleOauthButton,
   MicrosoftOauthButton,
   TwitterOauthButton,
-} from "./oauth-buttons"
+} from "./oauth-buttons";
 
 const LoginButtonGroup: React.FC = () => {
   const {
@@ -20,7 +20,7 @@ const LoginButtonGroup: React.FC = () => {
     microsoftProvider,
     twitterProvider,
     customLoginButton,
-  } = useFirebaseDiscussion()
+  } = useFirebaseDiscussion();
   return (
     <div className="flex flex-wrap gap-2">
       {customLoginButton !== undefined && customLoginButton}
@@ -31,6 +31,6 @@ const LoginButtonGroup: React.FC = () => {
       {microsoftProvider && <MicrosoftOauthButton auth={auth} />}
       {twitterProvider && <TwitterOauthButton auth={auth} />}
     </div>
-  )
-}
-export default LoginButtonGroup
+  );
+};
+export default LoginButtonGroup;
