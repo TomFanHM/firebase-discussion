@@ -66,6 +66,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
         <div className="mt-6 flex w-full items-center justify-between gap-2">
           {/* Reactions */}
           <UserReactions
+            key={data.id}
             reactions={data.reactions}
             category="comment"
             action={{

@@ -75,6 +75,7 @@ const ReplyBlock: React.FC<ReplyBlockProps> = ({
           <MarkdownRenderer content={data.content} />
           <div className="mt-6">
             <UserReactions
+              key={data.id}
               reactions={data.reactions}
               category="reply"
               action={{

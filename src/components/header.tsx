@@ -29,6 +29,7 @@ const Header: React.FC = () => {
     <Fragment>
       <div className="relative mx-auto flex items-center justify-center">
         <UserReactions
+          key={identifier}
           reactions={docData.reactions}
           category="discussion"
           action={{
