@@ -2,6 +2,22 @@
   "name": "firebase-discussion",
   "private": false,
   "version": "1.0.2",
+  "author": "Tom Fan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TomFanHM/firebase-discussion"
+  },
+  "keywords": [
+    "firebase",
+    "discussion",
+    "react",
+    "typescript",
+    "nextjs",
+    "giscus",
+    "shadcn-ui"
+  ],
+  "description": "Firebase Discussion is a React TypeScript library that enables rapid development of discussion components within your application.",
   "type": "module",
   "files": [
     "dist"
