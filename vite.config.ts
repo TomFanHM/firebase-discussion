@@ -1,15 +1,15 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
-import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  publicDir: false,
   plugins: [
     react(),
     dts({ rollupTypes: true }),
-    visualizer({ open: true, filename: "bundle-analysis.html" }),
+    // visualizer({ open: true, filename: "bundle-analysis.html" }),
   ],
   preview: {
     port: 3000,

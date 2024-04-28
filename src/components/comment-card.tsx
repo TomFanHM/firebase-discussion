@@ -40,7 +40,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <Card id={data.id}>
+    <Card>
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           {/* Right */}

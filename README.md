@@ -2,7 +2,7 @@
 
 Firebase Discussion is a React TypeScript library that enables rapid development of discussion components within your application. Inspired by the functionality of Giscus, it leverages Firebase for real-time features, allowing website users to vote with emojis, leave comments in Markdown format, and reply to comments, mirroring the capabilities of Giscus.
 
-![print screen](public/template.png)
+![print screen](https://raw.githubusercontent.com/TomFanHM/firebase-discussion/main/public/template.png)
 
 ## Features
 
