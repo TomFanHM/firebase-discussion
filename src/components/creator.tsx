@@ -24,7 +24,7 @@ const Fallback = ({ uid }: { uid: string }) => {
           <UserSvg aria-hidden="true" className="h-4 w-4 fill-current" />
         </AvatarFallback>
       </Avatar>
-      <span className="text-ellipsis font-semibold">{`@user-${uid}`}</span>
+      <span className="text-ellipsis font-semibold">{`@user-${uid.slice(0, 10)}`}</span>
     </Fragment>
   );
 };

@@ -1,11 +1,10 @@
-import React, { Fragment, lazy, Suspense } from "react";
+import React, { Fragment } from "react";
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
 
 import useComments from "@/hooks/useComments";
 
+import CommentCard from "./comment-card";
 import { Skeleton } from "./ui/skeleton";
-
-const CommentCard = lazy(() => import("./comment-card"));
 
 // Fetch and display comments
 const Comments: React.FC = () => {
@@ -18,13 +17,13 @@ const Comments: React.FC = () => {
 
   return (
     <Fragment>
-      <section className="flex w-full flex-col gap-4">
+      <ul className="flex w-full flex-col gap-4">
         {comments.map((comment, i) => (
-          <Suspense key={i} fallback={null}>
+          <li key={i} id={`#${comment.id}`}>
             <CommentCard data={comment} />
-          </Suspense>
+          </li>
         ))}
-      </section>
+      </ul>
     </Fragment>
   );
 };
