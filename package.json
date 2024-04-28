@@ -1,11 +1,19 @@
 {
   "name": "firebase-discussion",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "files": [
     "dist"
   ],
+  "main": "dist/firebase-discussion.cmd.cjs",
+  "module": "dist/firebase-discussion.js",
+  "exports": {
+    ".": {
+      "import": "./dist/firebase-discussion.js",
+      "require": "./dist/firebase-discussion.cmd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
