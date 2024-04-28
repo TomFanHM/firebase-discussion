@@ -21,33 +21,43 @@ npm install firebase-discussion
 Here is a basic example of how to use Firebase Discussion in your project:
 
 ```tsx
-import React from "react"
-import FirebaseDiscussion from "@/components"
+import React from "react";
+import FirebaseDiscussion from "@/components";
 
-import { auth, firestore } from "./firebase"
+import { auth, firestore } from "./firebase";
 
-const Example = ({ theme }) => {
+type ExampleProps = {
+  appleProvider: boolean;
+  facebookProvider: boolean;
+  githubProvider: boolean;
+  googleProvider: boolean;
+  microsoftProvider: boolean;
+  twitterProvider: boolean;
+};
+
+const Example: React.FC<ExampleProps> = ({
+  appleProvider,
+  facebookProvider,
+  githubProvider,
+  googleProvider,
+  microsoftProvider,
+  twitterProvider,
+}) => {
   return (
-    <div className={theme}>
-      <FirebaseDiscussion
-        firestore={firestore}
-        auth={auth}
-        usersCollection="users"
-        identifier="test-discussion"
-        oauthOptions={{
-          apple: false,
-          google: true,
-          github: false,
-          twitter: false,
-          facebook: false,
-          microsoft: false,
-        }}
-      />
-    </div>
-  )
-}
-
-export default Example
+    <FirebaseDiscussion
+      firestore={firestore}
+      auth={auth}
+      identifier="test-discussion"
+      appleProvider={appleProvider}
+      facebookProvider={facebookProvider}
+      githubProvider={githubProvider}
+      googleProvider={googleProvider}
+      microsoftProvider={microsoftProvider}
+      twitterProvider={twitterProvider}
+    />
+  );
+};
+export default Example;
 ```
 
 Ensure you have configured Firebase in your project as `FirebaseDiscussion` relies on `firestore` and `auth` objects from Firebase.
@@ -60,7 +70,7 @@ Below are the `FirebaseDiscussion` component properties for configuration:
 - `auth`: Firebase Auth instance.
 - `usersCollection`: The name of the Firestore collection where user data is stored.
 - `identifier`: A unique identifier for the discussion.
-- `oauthOptions`: Configuration for OAuth providers, with boolean values to enable/disable each.
+- `providers`: Configuration for OAuth providers, with boolean values to enable/disable each.
 
 ## Contributing
 

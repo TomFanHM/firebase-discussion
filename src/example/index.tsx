@@ -24,7 +24,7 @@ const Example: React.FC<ExampleProps> = ({
     <FirebaseDiscussion
       firestore={firestore}
       auth={auth}
-      identifier="test-discussion-2"
+      identifier="test-discussion"
       appleProvider={appleProvider}
       facebookProvider={facebookProvider}
       githubProvider={githubProvider}
