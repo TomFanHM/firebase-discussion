@@ -3,8 +3,6 @@ import { config } from "@/config";
 import { useFirebaseDiscussion } from "@/context/firebase-discussion-context";
 import { Status } from "@/types";
 
-import { createDiscussion } from "@/lib/createDiscussion";
-
 import { LoadingSpinner } from "./ui/loading-spinner";
 import { Skeleton } from "./ui/skeleton";
 
@@ -57,8 +55,10 @@ const Container: React.FC = () => {
         const { doc, getDoc } = await import("firebase/firestore"); // Lazy import
         const docRef = doc(firestore, config.collection, identifier);
         const docSnap = await getDoc(docRef);
-        if (!docSnap.exists())
+        if (!docSnap.exists()) {
+          const { createDiscussion } = await import("@/lib/createDiscussion"); // Lazy import
           await createDiscussion({ firestore, identifier });
+        }
         setStatus("success");
       } catch (error) {
         console.log("🚀 ~ initial ~ error:", error);

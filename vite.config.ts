@@ -1,11 +1,16 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({ rollupTypes: true })],
+  plugins: [
+    react(),
+    dts({ rollupTypes: true }),
+    visualizer({ open: true, filename: "bundle-analysis.html" }),
+  ],
   preview: {
     port: 3000,
     strictPort: true,
@@ -28,10 +33,13 @@ export default defineConfig({
       fileName: "firebase-discussion",
     },
     rollupOptions: {
-      external: ["react"],
+      external: ["react", "react-dom", "firebase", "react-firebase-hooks"],
       output: {
         globals: {
           react: "React",
+          "react-dom": "ReactDOM",
+          firebase: "firebase",
+          "react-firebase-hooks": "ReactFirebaseHooks",
         },
       },
     },
