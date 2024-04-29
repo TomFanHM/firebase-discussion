@@ -110,7 +110,7 @@ const FetchReplies: React.FC<FetchRepliesProps> = ({ identifier }) => {
   return (
     <ul className="flex w-full flex-col">
       {replies.map((reply, i) => (
-        <li key={i} id={`#${reply.id}`}>
+        <li key={reply.id} id={`#${reply.id}`}>
           <ReplyBlock
             firstElement={i === 0}
             data={reply}

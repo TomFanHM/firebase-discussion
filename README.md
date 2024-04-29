@@ -102,6 +102,59 @@ Below are the `FirebaseDiscussion` component properties for configuration:
 - `usersCollection`: The name of the Firestore collection where user data is stored. Don't input if you don't have a collection for user's displayName and photoURL.
 - `identifier`: A unique identifier for the discussion.
 - `providers`: Configuration for OAuth providers, with boolean values to enable/disable each.
+- `customLoginButton`: Custom Login Button.
+
+## Setting Up Firebase Firestore Rules
+
+To ensure the security and integrity of the data within the discussion component, it is essential to configure Firebase Firestore security rules.
+
+You will need to replace the existing rules with the ones provided below to accommodate the structure and requirements of the discussion component:
+
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to verify authenticated users
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Function to check if the update only affects the user's own reactions
+    function isUpdatingOwnReactions() {
+      let reactionsMap = request.resource.data.reactions;
+      return request.auth != null && reactionsMap.keys().hasOnly([request.auth.uid]);
+    }
+
+    match /firebase-discussion/{discussionId} {
+      allow read, create: if true;
+      allow update: if isAuthenticated() && (isUpdatingOwnReactions() ||
+                    request.resource.data.keys().hasOnly(['comments']) ||
+                    request.resource.data.keys().hasOnly(['replies']));
+      allow delete: if false;
+
+      // Match any document in the 'comments' subcollection of a discussion
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if isAuthenticated();
+        allow update: if isAuthenticated() && (isUpdatingOwnReactions() ||
+                      request.resource.data.keys().hasOnly(['replies']));
+        allow delete: if false;
+
+        // Match any document in the 'replies' subcollection of a comment
+        match /replies/{replyId} {
+          allow read: if true;
+          allow create: if isAuthenticated();
+          // Only allow updates to own reactions by authenticated users
+          allow update: if isAuthenticated() && isUpdatingOwnReactions();
+          allow delete: if false;
+        }
+      }
+    }
+  }
+}
+```
 
 ## Display User Information
 
@@ -212,8 +265,6 @@ This library uses Tailwind CSS and Shadcn UI for styling. Ensure you have Tailwi
 ```
 
 2. **tailwind.config.js**
-
-- Remember to apply "./node_modules/firebase-discussion/\*_/_.{js,ts,jsx,tsx}"
 
 ```javascript
 /** @type {import('tailwindcss').Config} */

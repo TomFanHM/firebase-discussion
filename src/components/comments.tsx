@@ -18,8 +18,8 @@ const Comments: React.FC = () => {
   return (
     <Fragment>
       <ul className="flex w-full flex-col gap-4">
-        {comments.map((comment, i) => (
-          <li key={i} id={`#${comment.id}`}>
+        {comments.map((comment) => (
+          <li key={comment.id} id={`#${comment.id}`}>
             <CommentCard data={comment} />
           </li>
         ))}
