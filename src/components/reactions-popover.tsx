@@ -36,7 +36,11 @@ const ReactionsPopover: React.FC<ReactionsPopoverProps> = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-full">
+        <Button
+          variant="outline"
+          size="icon"
+          className="rounded-full text-foreground"
+        >
           <SmileSvg className="h-4 w-4 fill-current" />
         </Button>
       </PopoverTrigger>

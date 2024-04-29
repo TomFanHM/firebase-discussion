@@ -213,12 +213,18 @@ This library uses Tailwind CSS and Shadcn UI for styling. Ensure you have Tailwi
 
 2. **tailwind.config.js**
 
+- Remember to apply "./node_modules/firebase-discussion/\*_/_.{js,ts,jsx,tsx}"
+
 ```javascript
 /** @type {import('tailwindcss').Config} */
 import Typography from "@tailwindcss/typography";
 
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/firebase-discussion/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: ["class"],
   theme: {
     extend: {

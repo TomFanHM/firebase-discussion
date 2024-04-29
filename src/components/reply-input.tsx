@@ -59,76 +59,80 @@ const ReplyInput: React.FC<ReplyInputProps> = ({ identifier }) => {
 
   if (!focus)
     return (
-      <Input
-        placeholder="Write a reply"
-        readOnly
-        onClick={() => setFocus(true)}
-      />
+      <CardFooter className="border-t py-4">
+        <Input
+          placeholder="Write a reply"
+          readOnly
+          onClick={() => setFocus(true)}
+        />
+      </CardFooter>
     );
 
   return (
-    <form className="w-full" onSubmit={handleSubmit}>
-      <Tabs defaultValue="write" className="w-full">
-        <Card className="border-none shadow-none">
-          {/* Header */}
-          <CardHeader className="px-0 pb-0">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="write">Write</TabsTrigger>
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-            </TabsList>
-          </CardHeader>
-          {/* Content */}
-          <CardContent className="px-0 py-2">
-            <TabsContent value="write">
-              <div className="rounded-md focus-within:ring-1 focus-within:ring-ring">
-                <Textarea
-                  ref={textareaRef}
-                  placeholder="Write a reply"
-                  disabled={!user}
-                  className="max-h-[500px] min-h-[100px] focus-visible:ring-0"
-                  value={reply}
-                  onChange={handleInputChange}
-                />
-                <div className="flex justify-end rounded-b-md border border-t-0 px-2.5 py-2 align-middle">
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://guides.github.com/features/mastering-markdown/"
-                  >
-                    <MarkdownSvg
-                      className="h-4 w-4 fill-current"
-                      aria-label="hidden"
-                    />
-                  </a>
+    <CardFooter className="border-t py-4">
+      <form className="w-full" onSubmit={handleSubmit}>
+        <Tabs defaultValue="write" className="w-full">
+          <Card className="border-none shadow-none">
+            {/* Header */}
+            <CardHeader className="px-0 pb-0">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="write">Write</TabsTrigger>
+                <TabsTrigger value="preview">Preview</TabsTrigger>
+              </TabsList>
+            </CardHeader>
+            {/* Content */}
+            <CardContent className="px-0 py-2">
+              <TabsContent value="write">
+                <div className="rounded-md focus-within:ring-1 focus-within:ring-ring">
+                  <Textarea
+                    ref={textareaRef}
+                    placeholder="Write a reply"
+                    disabled={!user}
+                    className="max-h-[500px] min-h-[100px] focus-visible:ring-0"
+                    value={reply}
+                    onChange={handleInputChange}
+                  />
+                  <div className="flex justify-end rounded-b-md border border-t-0 px-2.5 py-2 align-middle">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://guides.github.com/features/mastering-markdown/"
+                    >
+                      <MarkdownSvg
+                        className="h-4 w-4 fill-current"
+                        aria-label="hidden"
+                      />
+                    </a>
+                  </div>
                 </div>
+              </TabsContent>
+              <TabsContent value="preview">
+                <div className="min-h-[100px] border-b-2 px-2 py-4">
+                  <MarkdownRenderer content={reply} />
+                </div>
+              </TabsContent>
+            </CardContent>
+            <CardFooter className="px-0">
+              <div className="flex flex-1 items-center justify-end gap-2">
+                <Button
+                  variant="outline"
+                  type="button"
+                  onClick={() => {
+                    setFocus(false);
+                    setReply("");
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={!reply || loading}>
+                  Reply
+                </Button>
               </div>
-            </TabsContent>
-            <TabsContent value="preview">
-              <div className="min-h-[100px] border-b-2 px-2 py-4">
-                <MarkdownRenderer content={reply} />
-              </div>
-            </TabsContent>
-          </CardContent>
-          <CardFooter className="px-0">
-            <div className="flex flex-1 items-center justify-end gap-2">
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => {
-                  setFocus(false);
-                  setReply("");
-                }}
-              >
-                Cancel
-              </Button>
-              <Button type="submit" disabled={!reply || loading}>
-                Reply
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
-      </Tabs>
-    </form>
+            </CardFooter>
+          </Card>
+        </Tabs>
+      </form>
+    </CardFooter>
   );
 };
 export default ReplyInput;

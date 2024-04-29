@@ -1,9 +1,12 @@
 import React from "react";
 import FirebaseDiscussion from "@/components";
 
+import { cn } from "@/lib/utils";
+
 import { auth, firestore } from "./firebase";
 
 type ExampleProps = {
+  theme: "light" | "dark";
   appleProvider: boolean;
   facebookProvider: boolean;
   githubProvider: boolean;
@@ -13,6 +16,7 @@ type ExampleProps = {
 };
 
 const Example: React.FC<ExampleProps> = ({
+  theme = "light",
   appleProvider,
   facebookProvider,
   githubProvider,
@@ -21,17 +25,19 @@ const Example: React.FC<ExampleProps> = ({
   twitterProvider,
 }) => {
   return (
-    <FirebaseDiscussion
-      firestore={firestore}
-      auth={auth}
-      identifier="test-discussion"
-      appleProvider={appleProvider}
-      facebookProvider={facebookProvider}
-      githubProvider={githubProvider}
-      googleProvider={googleProvider}
-      microsoftProvider={microsoftProvider}
-      twitterProvider={twitterProvider}
-    />
+    <div className={cn(theme, "relative")}>
+      <FirebaseDiscussion
+        firestore={firestore}
+        auth={auth}
+        identifier="test-discussion"
+        appleProvider={appleProvider}
+        facebookProvider={facebookProvider}
+        githubProvider={githubProvider}
+        googleProvider={googleProvider}
+        microsoftProvider={microsoftProvider}
+        twitterProvider={twitterProvider}
+      />
+    </div>
   );
 };
 export default Example;

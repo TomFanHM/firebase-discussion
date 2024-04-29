@@ -70,7 +70,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
           return (
             <div className="relative" style={style}>
               <CopyButton>{children}</CopyButton>
-              <pre>{children}</pre>
+              <pre className="bg-slate-900">{children}</pre>
             </div>
           );
         },

@@ -9,7 +9,7 @@ import MarkdownRenderer from "./markdown-renderer";
 import Replies from "./replies";
 import ReplyInput from "./reply-input";
 import Share from "./share";
-import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import { Card, CardContent, CardHeader } from "./ui/card";
 import UserReactions from "./user-reactions";
 
 type CommentCardProps = {
@@ -92,9 +92,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ data }) => {
         </CardContent>
       )}
       {/* Input */}
-      <CardFooter className="border-t py-4">
-        <ReplyInput identifier={{ discussion: identifier, comment: data.id }} />
-      </CardFooter>
+      <ReplyInput identifier={{ discussion: identifier, comment: data.id }} />
     </Card>
   );
 };

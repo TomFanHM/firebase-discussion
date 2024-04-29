@@ -67,7 +67,7 @@ const UserReactions: React.FC<UserReactionsProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-2",
+        "flex flex-wrap items-center gap-2 text-foreground",
         category === "discussion" ? "justify-center" : "justify-start"
       )}
     >

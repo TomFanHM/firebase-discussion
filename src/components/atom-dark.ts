@@ -43,10 +43,8 @@ export const atomDark: {
     margin: ".5em 0",
     overflow: "auto",
     borderRadius: "0.3em",
-    background: "transparent",
   },
   ':not(pre) > code[class*="language-"]': {
-    background: "transparent",
     padding: ".1em",
     borderRadius: ".3em",
   },
