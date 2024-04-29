@@ -1,7 +1,21 @@
+import { readFileSync } from "fs";
 import path from "path";
 import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+
+const packageJson = JSON.parse(
+  readFileSync("./package.json", { encoding: "utf-8" })
+);
+
+const globals = {
+  ...(packageJson.dependencies || {}),
+};
+
+function resolve(str: string) {
+  return path.resolve(__dirname, str);
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,18 +23,8 @@ export default defineConfig({
   plugins: [
     react(),
     dts({ rollupTypes: true }),
-    // visualizer({ open: true, filename: "bundle-analysis.html" }),
+    visualizer({ open: true, filename: "bundle-analysis.html" }),
   ],
-  preview: {
-    port: 3000,
-    strictPort: true,
-  },
-  server: {
-    port: 3000,
-    strictPort: true,
-    host: true,
-    origin: "http://0.0.0.0:3000",
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -28,20 +32,20 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, "./src/components/index.tsx"),
+      entry: resolve("./src/components/index.tsx"),
       name: "firebase-discussion",
       fileName: "firebase-discussion",
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: ["react", "react-dom", "firebase", "react-firebase-hooks"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          firebase: "firebase",
-          "react-firebase-hooks": "ReactFirebaseHooks",
-        },
-      },
+      external: [
+        "react",
+        "react-dom",
+        "firebase",
+        "firebase/firestore",
+        "react-firebase-hooks",
+        ...Object.keys(globals),
+      ],
     },
   },
 });
