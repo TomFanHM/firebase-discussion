@@ -1,9 +1,8 @@
 import React from "react";
 import FirebaseDiscussion from "@/components";
 
-import { cn } from "@/lib/utils";
-
 import { auth, firestore } from "./firebase";
+import { ThemeProvider } from "./theme-provider";
 
 type ExampleProps = {
   theme: "light" | "dark";
@@ -16,7 +15,7 @@ type ExampleProps = {
 };
 
 const Example: React.FC<ExampleProps> = ({
-  theme = "light",
+  theme,
   appleProvider,
   facebookProvider,
   githubProvider,
@@ -25,7 +24,7 @@ const Example: React.FC<ExampleProps> = ({
   twitterProvider,
 }) => {
   return (
-    <div className={cn(theme, "relative")}>
+    <ThemeProvider defaultTheme={theme}>
       <FirebaseDiscussion
         firestore={firestore}
         auth={auth}
@@ -37,7 +36,7 @@ const Example: React.FC<ExampleProps> = ({
         microsoftProvider={microsoftProvider}
         twitterProvider={twitterProvider}
       />
-    </div>
+    </ThemeProvider>
   );
 };
 export default Example;

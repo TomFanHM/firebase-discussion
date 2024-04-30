@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  doc,
-  onSnapshot,
-  type DocumentData,
-  type Firestore,
-} from "firebase/firestore";
+import type { DocumentData, Firestore } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
 type UseDocumentProps<T> = {
   firestore: Firestore;

@@ -57,34 +57,18 @@ import FirebaseDiscussion from "@/components";
 
 import { auth, firestore } from "./firebase";
 
-type ExampleProps = {
-  appleProvider: boolean;
-  facebookProvider: boolean;
-  githubProvider: boolean;
-  googleProvider: boolean;
-  microsoftProvider: boolean;
-  twitterProvider: boolean;
-};
-
-const Example: React.FC<ExampleProps> = ({
-  appleProvider,
-  facebookProvider,
-  githubProvider,
-  googleProvider,
-  microsoftProvider,
-  twitterProvider,
-}) => {
+const Example: React.FC = () => {
   return (
     <FirebaseDiscussion
       firestore={firestore}
       auth={auth}
       identifier="test-discussion"
-      appleProvider={appleProvider}
-      facebookProvider={facebookProvider}
-      githubProvider={githubProvider}
-      googleProvider={googleProvider}
-      microsoftProvider={microsoftProvider}
-      twitterProvider={twitterProvider}
+      appleProvider={true}
+      facebookProvider={true}
+      githubProvider={true}
+      googleProvider={true}
+      microsoftProvider={true}
+      twitterProvider={true}
     />
   );
 };
@@ -274,7 +258,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/firebase-discussion/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/firebase-discussion/**/*.{js,ts,jsx,tsx}", // Apply tailwind css to custom component
   ],
   darkMode: ["class"],
   theme: {

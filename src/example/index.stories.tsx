@@ -17,6 +17,7 @@ type Story = StoryObj<typeof Example>;
 
 export const Default: Story = {
   args: {
+    theme: "dark",
     appleProvider: true,
     facebookProvider: true,
     githubProvider: true,

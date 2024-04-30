@@ -44,6 +44,7 @@ export default defineConfig({
         "firebase",
         "firebase/firestore",
         "react-firebase-hooks",
+        "react-firebase-hooks/auth",
         ...Object.keys(globals),
       ],
     },
