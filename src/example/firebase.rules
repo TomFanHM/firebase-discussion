@@ -14,19 +14,20 @@ service cloud.firestore {
       return request.auth != null && reactionsMap.keys().hasAny([request.auth.uid]);
     }
 
+    function canOnlyUpdateCounters() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasAny(['comments', 'replies']);
+    }
+
     match /firebase-discussion/{discussionId} {
       allow read, create: if true;
-      allow update: if isAuthenticated() && (isUpdatingOwnReactions() ||
-                    request.resource.data.keys().hasOnly(['comments']) ||
-                    request.resource.data.keys().hasOnly(['replies']));
+      allow update: if isAuthenticated() && (isUpdatingOwnReactions() || canOnlyUpdateCounters());
       allow delete: if false;
 
       // Match any document in the 'comments' subcollection of a discussion
       match /comments/{commentId} {
         allow read: if true;
         allow create: if isAuthenticated();
-        allow update: if isAuthenticated() && (isUpdatingOwnReactions() ||
-                      request.resource.data.keys().hasOnly(['replies']));
+        allow update: if isAuthenticated() && (isUpdatingOwnReactions() || canOnlyUpdateCounters());
         allow delete: if false;
 
         // Match any document in the 'replies' subcollection of a comment

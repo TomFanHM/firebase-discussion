@@ -94,7 +94,7 @@ To ensure the security and integrity of the data within the discussion component
 
 You will need to replace the existing rules with the ones provided below to accommodate the structure and requirements of the discussion component:
 
-```
+```json
 rules_version = '2';
 
 service cloud.firestore {
@@ -111,19 +111,20 @@ service cloud.firestore {
       return request.auth != null && reactionsMap.keys().hasAny([request.auth.uid]);
     }
 
+    function canOnlyUpdateCounters() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasAny(['comments', 'replies']);
+    }
+
     match /firebase-discussion/{discussionId} {
       allow read, create: if true;
-      allow update: if isAuthenticated() && (isUpdatingOwnReactions() ||
-                    request.resource.data.keys().hasOnly(['comments']) ||
-                    request.resource.data.keys().hasOnly(['replies']));
+      allow update: if isAuthenticated() && (isUpdatingOwnReactions() || canOnlyUpdateCounters());
       allow delete: if false;
 
       // Match any document in the 'comments' subcollection of a discussion
       match /comments/{commentId} {
         allow read: if true;
         allow create: if isAuthenticated();
-        allow update: if isAuthenticated() && (isUpdatingOwnReactions() ||
-                      request.resource.data.keys().hasOnly(['replies']));
+        allow update: if isAuthenticated() && (isUpdatingOwnReactions() || canOnlyUpdateCounters());
         allow delete: if false;
 
         // Match any document in the 'replies' subcollection of a comment
@@ -138,6 +139,7 @@ service cloud.firestore {
     }
   }
 }
+
 ```
 
 ## Display User Information
