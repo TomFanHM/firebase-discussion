@@ -56,8 +56,8 @@ const SocialMediaShare: React.FC<SocialMediaShareProps> = ({ id }) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-0" />
-      <CarouselNext className="right-0" />
+      <CarouselPrevious className="left-0 fill-current" />
+      <CarouselNext className="right-0 fill-current" />
     </Carousel>
   );
 };

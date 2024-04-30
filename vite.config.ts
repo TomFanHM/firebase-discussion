@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import path from "path";
 import react from "@vitejs/plugin-react";
-import { visualizer } from "rollup-plugin-visualizer";
+// import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -23,7 +23,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({ rollupTypes: true }),
-    visualizer({ open: true, filename: "bundle-analysis.html" }),
+    // visualizer({ open: true, filename: "bundle-analysis.html" }),
   ],
   resolve: {
     alias: {
