@@ -108,7 +108,7 @@ service cloud.firestore {
     // Function to check if the update only affects the user's own reactions
     function isUpdatingOwnReactions() {
       let reactionsMap = request.resource.data.reactions;
-      return request.auth != null && reactionsMap.keys().hasOnly([request.auth.uid]);
+      return request.auth != null && reactionsMap.keys().hasAny([request.auth.uid]);
     }
 
     match /firebase-discussion/{discussionId} {
